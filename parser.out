@@ -1,0 +1,1111 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    WHITESPACE
+
+Grammar
+
+Rule 0     S' -> ctl
+Rule 1     ctl -> ctl_expr
+Rule 2     ctl_expr -> LPAREN ctl_expr RPAREN
+Rule 3     ctl_expr -> TRUE
+Rule 4     ctl_expr -> FALSE
+Rule 5     ctl_expr -> label
+Rule 6     ctl_expr -> NOT ctl_expr
+Rule 7     ctl_expr -> ctl_expr AND ctl_expr
+Rule 8     ctl_expr -> ctl_expr OR ctl_expr
+Rule 9     ctl_expr -> ctl_expr IMPLIES ctl_expr
+Rule 10    ctl_expr -> A ctl_expr
+Rule 11    ctl_expr -> E ctl_expr
+Rule 12    ctl_expr -> A ctl_expr U ctl_expr
+Rule 13    ctl_expr -> E ctl_expr U ctl_expr
+Rule 14    ctl_expr -> AG ctl_expr
+Rule 15    ctl_expr -> EG ctl_expr
+Rule 16    ctl_expr -> AF ctl_expr
+Rule 17    ctl_expr -> EF ctl_expr
+Rule 18    ctl_expr -> AX ctl_expr
+Rule 19    ctl_expr -> EX ctl_expr
+
+Terminals, with rules where they appear
+
+A                    : 10 12
+AF                   : 16
+AG                   : 14
+AND                  : 7
+AX                   : 18
+E                    : 11 13
+EF                   : 17
+EG                   : 15
+EX                   : 19
+FALSE                : 4
+IMPLIES              : 9
+LPAREN               : 2
+NOT                  : 6
+OR                   : 8
+RPAREN               : 2
+TRUE                 : 3
+U                    : 12 13
+WHITESPACE           : 
+error                : 
+label                : 5
+
+Nonterminals, with rules where they appear
+
+ctl                  : 0
+ctl_expr             : 1 2 6 7 7 8 8 9 9 10 11 12 12 13 13 14 15 16 17 18 19
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . ctl
+    (1) ctl -> . ctl_expr
+    (2) ctl_expr -> . LPAREN ctl_expr RPAREN
+    (3) ctl_expr -> . TRUE
+    (4) ctl_expr -> . FALSE
+    (5) ctl_expr -> . label
+    (6) ctl_expr -> . NOT ctl_expr
+    (7) ctl_expr -> . ctl_expr AND ctl_expr
+    (8) ctl_expr -> . ctl_expr OR ctl_expr
+    (9) ctl_expr -> . ctl_expr IMPLIES ctl_expr
+    (10) ctl_expr -> . A ctl_expr
+    (11) ctl_expr -> . E ctl_expr
+    (12) ctl_expr -> . A ctl_expr U ctl_expr
+    (13) ctl_expr -> . E ctl_expr U ctl_expr
+    (14) ctl_expr -> . AG ctl_expr
+    (15) ctl_expr -> . EG ctl_expr
+    (16) ctl_expr -> . AF ctl_expr
+    (17) ctl_expr -> . EF ctl_expr
+    (18) ctl_expr -> . AX ctl_expr
+    (19) ctl_expr -> . EX ctl_expr
+
+    LPAREN          shift and go to state 3
+    TRUE            shift and go to state 4
+    FALSE           shift and go to state 5
+    label           shift and go to state 6
+    NOT             shift and go to state 7
+    A               shift and go to state 8
+    E               shift and go to state 9
+    AG              shift and go to state 10
+    EG              shift and go to state 11
+    AF              shift and go to state 12
+    EF              shift and go to state 13
+    AX              shift and go to state 14
+    EX              shift and go to state 15
+
+    ctl                            shift and go to state 1
+    ctl_expr                       shift and go to state 2
+
+state 1
+
+    (0) S' -> ctl .
+
+
+
+state 2
+
+    (1) ctl -> ctl_expr .
+    (7) ctl_expr -> ctl_expr . AND ctl_expr
+    (8) ctl_expr -> ctl_expr . OR ctl_expr
+    (9) ctl_expr -> ctl_expr . IMPLIES ctl_expr
+
+    $end            reduce using rule 1 (ctl -> ctl_expr .)
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    IMPLIES         shift and go to state 18
+
+
+state 3
+
+    (2) ctl_expr -> LPAREN . ctl_expr RPAREN
+    (2) ctl_expr -> . LPAREN ctl_expr RPAREN
+    (3) ctl_expr -> . TRUE
+    (4) ctl_expr -> . FALSE
+    (5) ctl_expr -> . label
+    (6) ctl_expr -> . NOT ctl_expr
+    (7) ctl_expr -> . ctl_expr AND ctl_expr
+    (8) ctl_expr -> . ctl_expr OR ctl_expr
+    (9) ctl_expr -> . ctl_expr IMPLIES ctl_expr
+    (10) ctl_expr -> . A ctl_expr
+    (11) ctl_expr -> . E ctl_expr
+    (12) ctl_expr -> . A ctl_expr U ctl_expr
+    (13) ctl_expr -> . E ctl_expr U ctl_expr
+    (14) ctl_expr -> . AG ctl_expr
+    (15) ctl_expr -> . EG ctl_expr
+    (16) ctl_expr -> . AF ctl_expr
+    (17) ctl_expr -> . EF ctl_expr
+    (18) ctl_expr -> . AX ctl_expr
+    (19) ctl_expr -> . EX ctl_expr
+
+    LPAREN          shift and go to state 3
+    TRUE            shift and go to state 4
+    FALSE           shift and go to state 5
+    label           shift and go to state 6
+    NOT             shift and go to state 7
+    A               shift and go to state 8
+    E               shift and go to state 9
+    AG              shift and go to state 10
+    EG              shift and go to state 11
+    AF              shift and go to state 12
+    EF              shift and go to state 13
+    AX              shift and go to state 14
+    EX              shift and go to state 15
+
+    ctl_expr                       shift and go to state 19
+
+state 4
+
+    (3) ctl_expr -> TRUE .
+
+    AND             reduce using rule 3 (ctl_expr -> TRUE .)
+    OR              reduce using rule 3 (ctl_expr -> TRUE .)
+    IMPLIES         reduce using rule 3 (ctl_expr -> TRUE .)
+    $end            reduce using rule 3 (ctl_expr -> TRUE .)
+    RPAREN          reduce using rule 3 (ctl_expr -> TRUE .)
+    U               reduce using rule 3 (ctl_expr -> TRUE .)
+
+
+state 5
+
+    (4) ctl_expr -> FALSE .
+
+    AND             reduce using rule 4 (ctl_expr -> FALSE .)
+    OR              reduce using rule 4 (ctl_expr -> FALSE .)
+    IMPLIES         reduce using rule 4 (ctl_expr -> FALSE .)
+    $end            reduce using rule 4 (ctl_expr -> FALSE .)
+    RPAREN          reduce using rule 4 (ctl_expr -> FALSE .)
+    U               reduce using rule 4 (ctl_expr -> FALSE .)
+
+
+state 6
+
+    (5) ctl_expr -> label .
+
+    AND             reduce using rule 5 (ctl_expr -> label .)
+    OR              reduce using rule 5 (ctl_expr -> label .)
+    IMPLIES         reduce using rule 5 (ctl_expr -> label .)
+    $end            reduce using rule 5 (ctl_expr -> label .)
+    RPAREN          reduce using rule 5 (ctl_expr -> label .)
+    U               reduce using rule 5 (ctl_expr -> label .)
+
+
+state 7
+
+    (6) ctl_expr -> NOT . ctl_expr
+    (2) ctl_expr -> . LPAREN ctl_expr RPAREN
+    (3) ctl_expr -> . TRUE
+    (4) ctl_expr -> . FALSE
+    (5) ctl_expr -> . label
+    (6) ctl_expr -> . NOT ctl_expr
+    (7) ctl_expr -> . ctl_expr AND ctl_expr
+    (8) ctl_expr -> . ctl_expr OR ctl_expr
+    (9) ctl_expr -> . ctl_expr IMPLIES ctl_expr
+    (10) ctl_expr -> . A ctl_expr
+    (11) ctl_expr -> . E ctl_expr
+    (12) ctl_expr -> . A ctl_expr U ctl_expr
+    (13) ctl_expr -> . E ctl_expr U ctl_expr
+    (14) ctl_expr -> . AG ctl_expr
+    (15) ctl_expr -> . EG ctl_expr
+    (16) ctl_expr -> . AF ctl_expr
+    (17) ctl_expr -> . EF ctl_expr
+    (18) ctl_expr -> . AX ctl_expr
+    (19) ctl_expr -> . EX ctl_expr
+
+    LPAREN          shift and go to state 3
+    TRUE            shift and go to state 4
+    FALSE           shift and go to state 5
+    label           shift and go to state 6
+    NOT             shift and go to state 7
+    A               shift and go to state 8
+    E               shift and go to state 9
+    AG              shift and go to state 10
+    EG              shift and go to state 11
+    AF              shift and go to state 12
+    EF              shift and go to state 13
+    AX              shift and go to state 14
+    EX              shift and go to state 15
+
+    ctl_expr                       shift and go to state 20
+
+state 8
+
+    (10) ctl_expr -> A . ctl_expr
+    (12) ctl_expr -> A . ctl_expr U ctl_expr
+    (2) ctl_expr -> . LPAREN ctl_expr RPAREN
+    (3) ctl_expr -> . TRUE
+    (4) ctl_expr -> . FALSE
+    (5) ctl_expr -> . label
+    (6) ctl_expr -> . NOT ctl_expr
+    (7) ctl_expr -> . ctl_expr AND ctl_expr
+    (8) ctl_expr -> . ctl_expr OR ctl_expr
+    (9) ctl_expr -> . ctl_expr IMPLIES ctl_expr
+    (10) ctl_expr -> . A ctl_expr
+    (11) ctl_expr -> . E ctl_expr
+    (12) ctl_expr -> . A ctl_expr U ctl_expr
+    (13) ctl_expr -> . E ctl_expr U ctl_expr
+    (14) ctl_expr -> . AG ctl_expr
+    (15) ctl_expr -> . EG ctl_expr
+    (16) ctl_expr -> . AF ctl_expr
+    (17) ctl_expr -> . EF ctl_expr
+    (18) ctl_expr -> . AX ctl_expr
+    (19) ctl_expr -> . EX ctl_expr
+
+    LPAREN          shift and go to state 3
+    TRUE            shift and go to state 4
+    FALSE           shift and go to state 5
+    label           shift and go to state 6
+    NOT             shift and go to state 7
+    A               shift and go to state 8
+    E               shift and go to state 9
+    AG              shift and go to state 10
+    EG              shift and go to state 11
+    AF              shift and go to state 12
+    EF              shift and go to state 13
+    AX              shift and go to state 14
+    EX              shift and go to state 15
+
+    ctl_expr                       shift and go to state 21
+
+state 9
+
+    (11) ctl_expr -> E . ctl_expr
+    (13) ctl_expr -> E . ctl_expr U ctl_expr
+    (2) ctl_expr -> . LPAREN ctl_expr RPAREN
+    (3) ctl_expr -> . TRUE
+    (4) ctl_expr -> . FALSE
+    (5) ctl_expr -> . label
+    (6) ctl_expr -> . NOT ctl_expr
+    (7) ctl_expr -> . ctl_expr AND ctl_expr
+    (8) ctl_expr -> . ctl_expr OR ctl_expr
+    (9) ctl_expr -> . ctl_expr IMPLIES ctl_expr
+    (10) ctl_expr -> . A ctl_expr
+    (11) ctl_expr -> . E ctl_expr
+    (12) ctl_expr -> . A ctl_expr U ctl_expr
+    (13) ctl_expr -> . E ctl_expr U ctl_expr
+    (14) ctl_expr -> . AG ctl_expr
+    (15) ctl_expr -> . EG ctl_expr
+    (16) ctl_expr -> . AF ctl_expr
+    (17) ctl_expr -> . EF ctl_expr
+    (18) ctl_expr -> . AX ctl_expr
+    (19) ctl_expr -> . EX ctl_expr
+
+    LPAREN          shift and go to state 3
+    TRUE            shift and go to state 4
+    FALSE           shift and go to state 5
+    label           shift and go to state 6
+    NOT             shift and go to state 7
+    A               shift and go to state 8
+    E               shift and go to state 9
+    AG              shift and go to state 10
+    EG              shift and go to state 11
+    AF              shift and go to state 12
+    EF              shift and go to state 13
+    AX              shift and go to state 14
+    EX              shift and go to state 15
+
+    ctl_expr                       shift and go to state 22
+
+state 10
+
+    (14) ctl_expr -> AG . ctl_expr
+    (2) ctl_expr -> . LPAREN ctl_expr RPAREN
+    (3) ctl_expr -> . TRUE
+    (4) ctl_expr -> . FALSE
+    (5) ctl_expr -> . label
+    (6) ctl_expr -> . NOT ctl_expr
+    (7) ctl_expr -> . ctl_expr AND ctl_expr
+    (8) ctl_expr -> . ctl_expr OR ctl_expr
+    (9) ctl_expr -> . ctl_expr IMPLIES ctl_expr
+    (10) ctl_expr -> . A ctl_expr
+    (11) ctl_expr -> . E ctl_expr
+    (12) ctl_expr -> . A ctl_expr U ctl_expr
+    (13) ctl_expr -> . E ctl_expr U ctl_expr
+    (14) ctl_expr -> . AG ctl_expr
+    (15) ctl_expr -> . EG ctl_expr
+    (16) ctl_expr -> . AF ctl_expr
+    (17) ctl_expr -> . EF ctl_expr
+    (18) ctl_expr -> . AX ctl_expr
+    (19) ctl_expr -> . EX ctl_expr
+
+    LPAREN          shift and go to state 3
+    TRUE            shift and go to state 4
+    FALSE           shift and go to state 5
+    label           shift and go to state 6
+    NOT             shift and go to state 7
+    A               shift and go to state 8
+    E               shift and go to state 9
+    AG              shift and go to state 10
+    EG              shift and go to state 11
+    AF              shift and go to state 12
+    EF              shift and go to state 13
+    AX              shift and go to state 14
+    EX              shift and go to state 15
+
+    ctl_expr                       shift and go to state 23
+
+state 11
+
+    (15) ctl_expr -> EG . ctl_expr
+    (2) ctl_expr -> . LPAREN ctl_expr RPAREN
+    (3) ctl_expr -> . TRUE
+    (4) ctl_expr -> . FALSE
+    (5) ctl_expr -> . label
+    (6) ctl_expr -> . NOT ctl_expr
+    (7) ctl_expr -> . ctl_expr AND ctl_expr
+    (8) ctl_expr -> . ctl_expr OR ctl_expr
+    (9) ctl_expr -> . ctl_expr IMPLIES ctl_expr
+    (10) ctl_expr -> . A ctl_expr
+    (11) ctl_expr -> . E ctl_expr
+    (12) ctl_expr -> . A ctl_expr U ctl_expr
+    (13) ctl_expr -> . E ctl_expr U ctl_expr
+    (14) ctl_expr -> . AG ctl_expr
+    (15) ctl_expr -> . EG ctl_expr
+    (16) ctl_expr -> . AF ctl_expr
+    (17) ctl_expr -> . EF ctl_expr
+    (18) ctl_expr -> . AX ctl_expr
+    (19) ctl_expr -> . EX ctl_expr
+
+    LPAREN          shift and go to state 3
+    TRUE            shift and go to state 4
+    FALSE           shift and go to state 5
+    label           shift and go to state 6
+    NOT             shift and go to state 7
+    A               shift and go to state 8
+    E               shift and go to state 9
+    AG              shift and go to state 10
+    EG              shift and go to state 11
+    AF              shift and go to state 12
+    EF              shift and go to state 13
+    AX              shift and go to state 14
+    EX              shift and go to state 15
+
+    ctl_expr                       shift and go to state 24
+
+state 12
+
+    (16) ctl_expr -> AF . ctl_expr
+    (2) ctl_expr -> . LPAREN ctl_expr RPAREN
+    (3) ctl_expr -> . TRUE
+    (4) ctl_expr -> . FALSE
+    (5) ctl_expr -> . label
+    (6) ctl_expr -> . NOT ctl_expr
+    (7) ctl_expr -> . ctl_expr AND ctl_expr
+    (8) ctl_expr -> . ctl_expr OR ctl_expr
+    (9) ctl_expr -> . ctl_expr IMPLIES ctl_expr
+    (10) ctl_expr -> . A ctl_expr
+    (11) ctl_expr -> . E ctl_expr
+    (12) ctl_expr -> . A ctl_expr U ctl_expr
+    (13) ctl_expr -> . E ctl_expr U ctl_expr
+    (14) ctl_expr -> . AG ctl_expr
+    (15) ctl_expr -> . EG ctl_expr
+    (16) ctl_expr -> . AF ctl_expr
+    (17) ctl_expr -> . EF ctl_expr
+    (18) ctl_expr -> . AX ctl_expr
+    (19) ctl_expr -> . EX ctl_expr
+
+    LPAREN          shift and go to state 3
+    TRUE            shift and go to state 4
+    FALSE           shift and go to state 5
+    label           shift and go to state 6
+    NOT             shift and go to state 7
+    A               shift and go to state 8
+    E               shift and go to state 9
+    AG              shift and go to state 10
+    EG              shift and go to state 11
+    AF              shift and go to state 12
+    EF              shift and go to state 13
+    AX              shift and go to state 14
+    EX              shift and go to state 15
+
+    ctl_expr                       shift and go to state 25
+
+state 13
+
+    (17) ctl_expr -> EF . ctl_expr
+    (2) ctl_expr -> . LPAREN ctl_expr RPAREN
+    (3) ctl_expr -> . TRUE
+    (4) ctl_expr -> . FALSE
+    (5) ctl_expr -> . label
+    (6) ctl_expr -> . NOT ctl_expr
+    (7) ctl_expr -> . ctl_expr AND ctl_expr
+    (8) ctl_expr -> . ctl_expr OR ctl_expr
+    (9) ctl_expr -> . ctl_expr IMPLIES ctl_expr
+    (10) ctl_expr -> . A ctl_expr
+    (11) ctl_expr -> . E ctl_expr
+    (12) ctl_expr -> . A ctl_expr U ctl_expr
+    (13) ctl_expr -> . E ctl_expr U ctl_expr
+    (14) ctl_expr -> . AG ctl_expr
+    (15) ctl_expr -> . EG ctl_expr
+    (16) ctl_expr -> . AF ctl_expr
+    (17) ctl_expr -> . EF ctl_expr
+    (18) ctl_expr -> . AX ctl_expr
+    (19) ctl_expr -> . EX ctl_expr
+
+    LPAREN          shift and go to state 3
+    TRUE            shift and go to state 4
+    FALSE           shift and go to state 5
+    label           shift and go to state 6
+    NOT             shift and go to state 7
+    A               shift and go to state 8
+    E               shift and go to state 9
+    AG              shift and go to state 10
+    EG              shift and go to state 11
+    AF              shift and go to state 12
+    EF              shift and go to state 13
+    AX              shift and go to state 14
+    EX              shift and go to state 15
+
+    ctl_expr                       shift and go to state 26
+
+state 14
+
+    (18) ctl_expr -> AX . ctl_expr
+    (2) ctl_expr -> . LPAREN ctl_expr RPAREN
+    (3) ctl_expr -> . TRUE
+    (4) ctl_expr -> . FALSE
+    (5) ctl_expr -> . label
+    (6) ctl_expr -> . NOT ctl_expr
+    (7) ctl_expr -> . ctl_expr AND ctl_expr
+    (8) ctl_expr -> . ctl_expr OR ctl_expr
+    (9) ctl_expr -> . ctl_expr IMPLIES ctl_expr
+    (10) ctl_expr -> . A ctl_expr
+    (11) ctl_expr -> . E ctl_expr
+    (12) ctl_expr -> . A ctl_expr U ctl_expr
+    (13) ctl_expr -> . E ctl_expr U ctl_expr
+    (14) ctl_expr -> . AG ctl_expr
+    (15) ctl_expr -> . EG ctl_expr
+    (16) ctl_expr -> . AF ctl_expr
+    (17) ctl_expr -> . EF ctl_expr
+    (18) ctl_expr -> . AX ctl_expr
+    (19) ctl_expr -> . EX ctl_expr
+
+    LPAREN          shift and go to state 3
+    TRUE            shift and go to state 4
+    FALSE           shift and go to state 5
+    label           shift and go to state 6
+    NOT             shift and go to state 7
+    A               shift and go to state 8
+    E               shift and go to state 9
+    AG              shift and go to state 10
+    EG              shift and go to state 11
+    AF              shift and go to state 12
+    EF              shift and go to state 13
+    AX              shift and go to state 14
+    EX              shift and go to state 15
+
+    ctl_expr                       shift and go to state 27
+
+state 15
+
+    (19) ctl_expr -> EX . ctl_expr
+    (2) ctl_expr -> . LPAREN ctl_expr RPAREN
+    (3) ctl_expr -> . TRUE
+    (4) ctl_expr -> . FALSE
+    (5) ctl_expr -> . label
+    (6) ctl_expr -> . NOT ctl_expr
+    (7) ctl_expr -> . ctl_expr AND ctl_expr
+    (8) ctl_expr -> . ctl_expr OR ctl_expr
+    (9) ctl_expr -> . ctl_expr IMPLIES ctl_expr
+    (10) ctl_expr -> . A ctl_expr
+    (11) ctl_expr -> . E ctl_expr
+    (12) ctl_expr -> . A ctl_expr U ctl_expr
+    (13) ctl_expr -> . E ctl_expr U ctl_expr
+    (14) ctl_expr -> . AG ctl_expr
+    (15) ctl_expr -> . EG ctl_expr
+    (16) ctl_expr -> . AF ctl_expr
+    (17) ctl_expr -> . EF ctl_expr
+    (18) ctl_expr -> . AX ctl_expr
+    (19) ctl_expr -> . EX ctl_expr
+
+    LPAREN          shift and go to state 3
+    TRUE            shift and go to state 4
+    FALSE           shift and go to state 5
+    label           shift and go to state 6
+    NOT             shift and go to state 7
+    A               shift and go to state 8
+    E               shift and go to state 9
+    AG              shift and go to state 10
+    EG              shift and go to state 11
+    AF              shift and go to state 12
+    EF              shift and go to state 13
+    AX              shift and go to state 14
+    EX              shift and go to state 15
+
+    ctl_expr                       shift and go to state 28
+
+state 16
+
+    (7) ctl_expr -> ctl_expr AND . ctl_expr
+    (2) ctl_expr -> . LPAREN ctl_expr RPAREN
+    (3) ctl_expr -> . TRUE
+    (4) ctl_expr -> . FALSE
+    (5) ctl_expr -> . label
+    (6) ctl_expr -> . NOT ctl_expr
+    (7) ctl_expr -> . ctl_expr AND ctl_expr
+    (8) ctl_expr -> . ctl_expr OR ctl_expr
+    (9) ctl_expr -> . ctl_expr IMPLIES ctl_expr
+    (10) ctl_expr -> . A ctl_expr
+    (11) ctl_expr -> . E ctl_expr
+    (12) ctl_expr -> . A ctl_expr U ctl_expr
+    (13) ctl_expr -> . E ctl_expr U ctl_expr
+    (14) ctl_expr -> . AG ctl_expr
+    (15) ctl_expr -> . EG ctl_expr
+    (16) ctl_expr -> . AF ctl_expr
+    (17) ctl_expr -> . EF ctl_expr
+    (18) ctl_expr -> . AX ctl_expr
+    (19) ctl_expr -> . EX ctl_expr
+
+    LPAREN          shift and go to state 3
+    TRUE            shift and go to state 4
+    FALSE           shift and go to state 5
+    label           shift and go to state 6
+    NOT             shift and go to state 7
+    A               shift and go to state 8
+    E               shift and go to state 9
+    AG              shift and go to state 10
+    EG              shift and go to state 11
+    AF              shift and go to state 12
+    EF              shift and go to state 13
+    AX              shift and go to state 14
+    EX              shift and go to state 15
+
+    ctl_expr                       shift and go to state 29
+
+state 17
+
+    (8) ctl_expr -> ctl_expr OR . ctl_expr
+    (2) ctl_expr -> . LPAREN ctl_expr RPAREN
+    (3) ctl_expr -> . TRUE
+    (4) ctl_expr -> . FALSE
+    (5) ctl_expr -> . label
+    (6) ctl_expr -> . NOT ctl_expr
+    (7) ctl_expr -> . ctl_expr AND ctl_expr
+    (8) ctl_expr -> . ctl_expr OR ctl_expr
+    (9) ctl_expr -> . ctl_expr IMPLIES ctl_expr
+    (10) ctl_expr -> . A ctl_expr
+    (11) ctl_expr -> . E ctl_expr
+    (12) ctl_expr -> . A ctl_expr U ctl_expr
+    (13) ctl_expr -> . E ctl_expr U ctl_expr
+    (14) ctl_expr -> . AG ctl_expr
+    (15) ctl_expr -> . EG ctl_expr
+    (16) ctl_expr -> . AF ctl_expr
+    (17) ctl_expr -> . EF ctl_expr
+    (18) ctl_expr -> . AX ctl_expr
+    (19) ctl_expr -> . EX ctl_expr
+
+    LPAREN          shift and go to state 3
+    TRUE            shift and go to state 4
+    FALSE           shift and go to state 5
+    label           shift and go to state 6
+    NOT             shift and go to state 7
+    A               shift and go to state 8
+    E               shift and go to state 9
+    AG              shift and go to state 10
+    EG              shift and go to state 11
+    AF              shift and go to state 12
+    EF              shift and go to state 13
+    AX              shift and go to state 14
+    EX              shift and go to state 15
+
+    ctl_expr                       shift and go to state 30
+
+state 18
+
+    (9) ctl_expr -> ctl_expr IMPLIES . ctl_expr
+    (2) ctl_expr -> . LPAREN ctl_expr RPAREN
+    (3) ctl_expr -> . TRUE
+    (4) ctl_expr -> . FALSE
+    (5) ctl_expr -> . label
+    (6) ctl_expr -> . NOT ctl_expr
+    (7) ctl_expr -> . ctl_expr AND ctl_expr
+    (8) ctl_expr -> . ctl_expr OR ctl_expr
+    (9) ctl_expr -> . ctl_expr IMPLIES ctl_expr
+    (10) ctl_expr -> . A ctl_expr
+    (11) ctl_expr -> . E ctl_expr
+    (12) ctl_expr -> . A ctl_expr U ctl_expr
+    (13) ctl_expr -> . E ctl_expr U ctl_expr
+    (14) ctl_expr -> . AG ctl_expr
+    (15) ctl_expr -> . EG ctl_expr
+    (16) ctl_expr -> . AF ctl_expr
+    (17) ctl_expr -> . EF ctl_expr
+    (18) ctl_expr -> . AX ctl_expr
+    (19) ctl_expr -> . EX ctl_expr
+
+    LPAREN          shift and go to state 3
+    TRUE            shift and go to state 4
+    FALSE           shift and go to state 5
+    label           shift and go to state 6
+    NOT             shift and go to state 7
+    A               shift and go to state 8
+    E               shift and go to state 9
+    AG              shift and go to state 10
+    EG              shift and go to state 11
+    AF              shift and go to state 12
+    EF              shift and go to state 13
+    AX              shift and go to state 14
+    EX              shift and go to state 15
+
+    ctl_expr                       shift and go to state 31
+
+state 19
+
+    (2) ctl_expr -> LPAREN ctl_expr . RPAREN
+    (7) ctl_expr -> ctl_expr . AND ctl_expr
+    (8) ctl_expr -> ctl_expr . OR ctl_expr
+    (9) ctl_expr -> ctl_expr . IMPLIES ctl_expr
+
+    RPAREN          shift and go to state 32
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    IMPLIES         shift and go to state 18
+
+
+state 20
+
+    (6) ctl_expr -> NOT ctl_expr .
+    (7) ctl_expr -> ctl_expr . AND ctl_expr
+    (8) ctl_expr -> ctl_expr . OR ctl_expr
+    (9) ctl_expr -> ctl_expr . IMPLIES ctl_expr
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for IMPLIES resolved as shift
+    $end            reduce using rule 6 (ctl_expr -> NOT ctl_expr .)
+    RPAREN          reduce using rule 6 (ctl_expr -> NOT ctl_expr .)
+    U               reduce using rule 6 (ctl_expr -> NOT ctl_expr .)
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    IMPLIES         shift and go to state 18
+
+  ! AND             [ reduce using rule 6 (ctl_expr -> NOT ctl_expr .) ]
+  ! OR              [ reduce using rule 6 (ctl_expr -> NOT ctl_expr .) ]
+  ! IMPLIES         [ reduce using rule 6 (ctl_expr -> NOT ctl_expr .) ]
+
+
+state 21
+
+    (10) ctl_expr -> A ctl_expr .
+    (12) ctl_expr -> A ctl_expr . U ctl_expr
+    (7) ctl_expr -> ctl_expr . AND ctl_expr
+    (8) ctl_expr -> ctl_expr . OR ctl_expr
+    (9) ctl_expr -> ctl_expr . IMPLIES ctl_expr
+
+  ! shift/reduce conflict for U resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for IMPLIES resolved as shift
+    $end            reduce using rule 10 (ctl_expr -> A ctl_expr .)
+    RPAREN          reduce using rule 10 (ctl_expr -> A ctl_expr .)
+    U               shift and go to state 33
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    IMPLIES         shift and go to state 18
+
+  ! AND             [ reduce using rule 10 (ctl_expr -> A ctl_expr .) ]
+  ! OR              [ reduce using rule 10 (ctl_expr -> A ctl_expr .) ]
+  ! IMPLIES         [ reduce using rule 10 (ctl_expr -> A ctl_expr .) ]
+  ! U               [ reduce using rule 10 (ctl_expr -> A ctl_expr .) ]
+
+
+state 22
+
+    (11) ctl_expr -> E ctl_expr .
+    (13) ctl_expr -> E ctl_expr . U ctl_expr
+    (7) ctl_expr -> ctl_expr . AND ctl_expr
+    (8) ctl_expr -> ctl_expr . OR ctl_expr
+    (9) ctl_expr -> ctl_expr . IMPLIES ctl_expr
+
+  ! shift/reduce conflict for U resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for IMPLIES resolved as shift
+    $end            reduce using rule 11 (ctl_expr -> E ctl_expr .)
+    RPAREN          reduce using rule 11 (ctl_expr -> E ctl_expr .)
+    U               shift and go to state 34
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    IMPLIES         shift and go to state 18
+
+  ! AND             [ reduce using rule 11 (ctl_expr -> E ctl_expr .) ]
+  ! OR              [ reduce using rule 11 (ctl_expr -> E ctl_expr .) ]
+  ! IMPLIES         [ reduce using rule 11 (ctl_expr -> E ctl_expr .) ]
+  ! U               [ reduce using rule 11 (ctl_expr -> E ctl_expr .) ]
+
+
+state 23
+
+    (14) ctl_expr -> AG ctl_expr .
+    (7) ctl_expr -> ctl_expr . AND ctl_expr
+    (8) ctl_expr -> ctl_expr . OR ctl_expr
+    (9) ctl_expr -> ctl_expr . IMPLIES ctl_expr
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for IMPLIES resolved as shift
+    $end            reduce using rule 14 (ctl_expr -> AG ctl_expr .)
+    RPAREN          reduce using rule 14 (ctl_expr -> AG ctl_expr .)
+    U               reduce using rule 14 (ctl_expr -> AG ctl_expr .)
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    IMPLIES         shift and go to state 18
+
+  ! AND             [ reduce using rule 14 (ctl_expr -> AG ctl_expr .) ]
+  ! OR              [ reduce using rule 14 (ctl_expr -> AG ctl_expr .) ]
+  ! IMPLIES         [ reduce using rule 14 (ctl_expr -> AG ctl_expr .) ]
+
+
+state 24
+
+    (15) ctl_expr -> EG ctl_expr .
+    (7) ctl_expr -> ctl_expr . AND ctl_expr
+    (8) ctl_expr -> ctl_expr . OR ctl_expr
+    (9) ctl_expr -> ctl_expr . IMPLIES ctl_expr
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for IMPLIES resolved as shift
+    $end            reduce using rule 15 (ctl_expr -> EG ctl_expr .)
+    RPAREN          reduce using rule 15 (ctl_expr -> EG ctl_expr .)
+    U               reduce using rule 15 (ctl_expr -> EG ctl_expr .)
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    IMPLIES         shift and go to state 18
+
+  ! AND             [ reduce using rule 15 (ctl_expr -> EG ctl_expr .) ]
+  ! OR              [ reduce using rule 15 (ctl_expr -> EG ctl_expr .) ]
+  ! IMPLIES         [ reduce using rule 15 (ctl_expr -> EG ctl_expr .) ]
+
+
+state 25
+
+    (16) ctl_expr -> AF ctl_expr .
+    (7) ctl_expr -> ctl_expr . AND ctl_expr
+    (8) ctl_expr -> ctl_expr . OR ctl_expr
+    (9) ctl_expr -> ctl_expr . IMPLIES ctl_expr
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for IMPLIES resolved as shift
+    $end            reduce using rule 16 (ctl_expr -> AF ctl_expr .)
+    RPAREN          reduce using rule 16 (ctl_expr -> AF ctl_expr .)
+    U               reduce using rule 16 (ctl_expr -> AF ctl_expr .)
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    IMPLIES         shift and go to state 18
+
+  ! AND             [ reduce using rule 16 (ctl_expr -> AF ctl_expr .) ]
+  ! OR              [ reduce using rule 16 (ctl_expr -> AF ctl_expr .) ]
+  ! IMPLIES         [ reduce using rule 16 (ctl_expr -> AF ctl_expr .) ]
+
+
+state 26
+
+    (17) ctl_expr -> EF ctl_expr .
+    (7) ctl_expr -> ctl_expr . AND ctl_expr
+    (8) ctl_expr -> ctl_expr . OR ctl_expr
+    (9) ctl_expr -> ctl_expr . IMPLIES ctl_expr
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for IMPLIES resolved as shift
+    $end            reduce using rule 17 (ctl_expr -> EF ctl_expr .)
+    RPAREN          reduce using rule 17 (ctl_expr -> EF ctl_expr .)
+    U               reduce using rule 17 (ctl_expr -> EF ctl_expr .)
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    IMPLIES         shift and go to state 18
+
+  ! AND             [ reduce using rule 17 (ctl_expr -> EF ctl_expr .) ]
+  ! OR              [ reduce using rule 17 (ctl_expr -> EF ctl_expr .) ]
+  ! IMPLIES         [ reduce using rule 17 (ctl_expr -> EF ctl_expr .) ]
+
+
+state 27
+
+    (18) ctl_expr -> AX ctl_expr .
+    (7) ctl_expr -> ctl_expr . AND ctl_expr
+    (8) ctl_expr -> ctl_expr . OR ctl_expr
+    (9) ctl_expr -> ctl_expr . IMPLIES ctl_expr
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for IMPLIES resolved as shift
+    $end            reduce using rule 18 (ctl_expr -> AX ctl_expr .)
+    RPAREN          reduce using rule 18 (ctl_expr -> AX ctl_expr .)
+    U               reduce using rule 18 (ctl_expr -> AX ctl_expr .)
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    IMPLIES         shift and go to state 18
+
+  ! AND             [ reduce using rule 18 (ctl_expr -> AX ctl_expr .) ]
+  ! OR              [ reduce using rule 18 (ctl_expr -> AX ctl_expr .) ]
+  ! IMPLIES         [ reduce using rule 18 (ctl_expr -> AX ctl_expr .) ]
+
+
+state 28
+
+    (19) ctl_expr -> EX ctl_expr .
+    (7) ctl_expr -> ctl_expr . AND ctl_expr
+    (8) ctl_expr -> ctl_expr . OR ctl_expr
+    (9) ctl_expr -> ctl_expr . IMPLIES ctl_expr
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for IMPLIES resolved as shift
+    $end            reduce using rule 19 (ctl_expr -> EX ctl_expr .)
+    RPAREN          reduce using rule 19 (ctl_expr -> EX ctl_expr .)
+    U               reduce using rule 19 (ctl_expr -> EX ctl_expr .)
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    IMPLIES         shift and go to state 18
+
+  ! AND             [ reduce using rule 19 (ctl_expr -> EX ctl_expr .) ]
+  ! OR              [ reduce using rule 19 (ctl_expr -> EX ctl_expr .) ]
+  ! IMPLIES         [ reduce using rule 19 (ctl_expr -> EX ctl_expr .) ]
+
+
+state 29
+
+    (7) ctl_expr -> ctl_expr AND ctl_expr .
+    (7) ctl_expr -> ctl_expr . AND ctl_expr
+    (8) ctl_expr -> ctl_expr . OR ctl_expr
+    (9) ctl_expr -> ctl_expr . IMPLIES ctl_expr
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for IMPLIES resolved as shift
+    $end            reduce using rule 7 (ctl_expr -> ctl_expr AND ctl_expr .)
+    RPAREN          reduce using rule 7 (ctl_expr -> ctl_expr AND ctl_expr .)
+    U               reduce using rule 7 (ctl_expr -> ctl_expr AND ctl_expr .)
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    IMPLIES         shift and go to state 18
+
+  ! AND             [ reduce using rule 7 (ctl_expr -> ctl_expr AND ctl_expr .) ]
+  ! OR              [ reduce using rule 7 (ctl_expr -> ctl_expr AND ctl_expr .) ]
+  ! IMPLIES         [ reduce using rule 7 (ctl_expr -> ctl_expr AND ctl_expr .) ]
+
+
+state 30
+
+    (8) ctl_expr -> ctl_expr OR ctl_expr .
+    (7) ctl_expr -> ctl_expr . AND ctl_expr
+    (8) ctl_expr -> ctl_expr . OR ctl_expr
+    (9) ctl_expr -> ctl_expr . IMPLIES ctl_expr
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for IMPLIES resolved as shift
+    $end            reduce using rule 8 (ctl_expr -> ctl_expr OR ctl_expr .)
+    RPAREN          reduce using rule 8 (ctl_expr -> ctl_expr OR ctl_expr .)
+    U               reduce using rule 8 (ctl_expr -> ctl_expr OR ctl_expr .)
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    IMPLIES         shift and go to state 18
+
+  ! AND             [ reduce using rule 8 (ctl_expr -> ctl_expr OR ctl_expr .) ]
+  ! OR              [ reduce using rule 8 (ctl_expr -> ctl_expr OR ctl_expr .) ]
+  ! IMPLIES         [ reduce using rule 8 (ctl_expr -> ctl_expr OR ctl_expr .) ]
+
+
+state 31
+
+    (9) ctl_expr -> ctl_expr IMPLIES ctl_expr .
+    (7) ctl_expr -> ctl_expr . AND ctl_expr
+    (8) ctl_expr -> ctl_expr . OR ctl_expr
+    (9) ctl_expr -> ctl_expr . IMPLIES ctl_expr
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for IMPLIES resolved as shift
+    $end            reduce using rule 9 (ctl_expr -> ctl_expr IMPLIES ctl_expr .)
+    RPAREN          reduce using rule 9 (ctl_expr -> ctl_expr IMPLIES ctl_expr .)
+    U               reduce using rule 9 (ctl_expr -> ctl_expr IMPLIES ctl_expr .)
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    IMPLIES         shift and go to state 18
+
+  ! AND             [ reduce using rule 9 (ctl_expr -> ctl_expr IMPLIES ctl_expr .) ]
+  ! OR              [ reduce using rule 9 (ctl_expr -> ctl_expr IMPLIES ctl_expr .) ]
+  ! IMPLIES         [ reduce using rule 9 (ctl_expr -> ctl_expr IMPLIES ctl_expr .) ]
+
+
+state 32
+
+    (2) ctl_expr -> LPAREN ctl_expr RPAREN .
+
+    AND             reduce using rule 2 (ctl_expr -> LPAREN ctl_expr RPAREN .)
+    OR              reduce using rule 2 (ctl_expr -> LPAREN ctl_expr RPAREN .)
+    IMPLIES         reduce using rule 2 (ctl_expr -> LPAREN ctl_expr RPAREN .)
+    $end            reduce using rule 2 (ctl_expr -> LPAREN ctl_expr RPAREN .)
+    RPAREN          reduce using rule 2 (ctl_expr -> LPAREN ctl_expr RPAREN .)
+    U               reduce using rule 2 (ctl_expr -> LPAREN ctl_expr RPAREN .)
+
+
+state 33
+
+    (12) ctl_expr -> A ctl_expr U . ctl_expr
+    (2) ctl_expr -> . LPAREN ctl_expr RPAREN
+    (3) ctl_expr -> . TRUE
+    (4) ctl_expr -> . FALSE
+    (5) ctl_expr -> . label
+    (6) ctl_expr -> . NOT ctl_expr
+    (7) ctl_expr -> . ctl_expr AND ctl_expr
+    (8) ctl_expr -> . ctl_expr OR ctl_expr
+    (9) ctl_expr -> . ctl_expr IMPLIES ctl_expr
+    (10) ctl_expr -> . A ctl_expr
+    (11) ctl_expr -> . E ctl_expr
+    (12) ctl_expr -> . A ctl_expr U ctl_expr
+    (13) ctl_expr -> . E ctl_expr U ctl_expr
+    (14) ctl_expr -> . AG ctl_expr
+    (15) ctl_expr -> . EG ctl_expr
+    (16) ctl_expr -> . AF ctl_expr
+    (17) ctl_expr -> . EF ctl_expr
+    (18) ctl_expr -> . AX ctl_expr
+    (19) ctl_expr -> . EX ctl_expr
+
+    LPAREN          shift and go to state 3
+    TRUE            shift and go to state 4
+    FALSE           shift and go to state 5
+    label           shift and go to state 6
+    NOT             shift and go to state 7
+    A               shift and go to state 8
+    E               shift and go to state 9
+    AG              shift and go to state 10
+    EG              shift and go to state 11
+    AF              shift and go to state 12
+    EF              shift and go to state 13
+    AX              shift and go to state 14
+    EX              shift and go to state 15
+
+    ctl_expr                       shift and go to state 35
+
+state 34
+
+    (13) ctl_expr -> E ctl_expr U . ctl_expr
+    (2) ctl_expr -> . LPAREN ctl_expr RPAREN
+    (3) ctl_expr -> . TRUE
+    (4) ctl_expr -> . FALSE
+    (5) ctl_expr -> . label
+    (6) ctl_expr -> . NOT ctl_expr
+    (7) ctl_expr -> . ctl_expr AND ctl_expr
+    (8) ctl_expr -> . ctl_expr OR ctl_expr
+    (9) ctl_expr -> . ctl_expr IMPLIES ctl_expr
+    (10) ctl_expr -> . A ctl_expr
+    (11) ctl_expr -> . E ctl_expr
+    (12) ctl_expr -> . A ctl_expr U ctl_expr
+    (13) ctl_expr -> . E ctl_expr U ctl_expr
+    (14) ctl_expr -> . AG ctl_expr
+    (15) ctl_expr -> . EG ctl_expr
+    (16) ctl_expr -> . AF ctl_expr
+    (17) ctl_expr -> . EF ctl_expr
+    (18) ctl_expr -> . AX ctl_expr
+    (19) ctl_expr -> . EX ctl_expr
+
+    LPAREN          shift and go to state 3
+    TRUE            shift and go to state 4
+    FALSE           shift and go to state 5
+    label           shift and go to state 6
+    NOT             shift and go to state 7
+    A               shift and go to state 8
+    E               shift and go to state 9
+    AG              shift and go to state 10
+    EG              shift and go to state 11
+    AF              shift and go to state 12
+    EF              shift and go to state 13
+    AX              shift and go to state 14
+    EX              shift and go to state 15
+
+    ctl_expr                       shift and go to state 36
+
+state 35
+
+    (12) ctl_expr -> A ctl_expr U ctl_expr .
+    (7) ctl_expr -> ctl_expr . AND ctl_expr
+    (8) ctl_expr -> ctl_expr . OR ctl_expr
+    (9) ctl_expr -> ctl_expr . IMPLIES ctl_expr
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for IMPLIES resolved as shift
+    $end            reduce using rule 12 (ctl_expr -> A ctl_expr U ctl_expr .)
+    RPAREN          reduce using rule 12 (ctl_expr -> A ctl_expr U ctl_expr .)
+    U               reduce using rule 12 (ctl_expr -> A ctl_expr U ctl_expr .)
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    IMPLIES         shift and go to state 18
+
+  ! AND             [ reduce using rule 12 (ctl_expr -> A ctl_expr U ctl_expr .) ]
+  ! OR              [ reduce using rule 12 (ctl_expr -> A ctl_expr U ctl_expr .) ]
+  ! IMPLIES         [ reduce using rule 12 (ctl_expr -> A ctl_expr U ctl_expr .) ]
+
+
+state 36
+
+    (13) ctl_expr -> E ctl_expr U ctl_expr .
+    (7) ctl_expr -> ctl_expr . AND ctl_expr
+    (8) ctl_expr -> ctl_expr . OR ctl_expr
+    (9) ctl_expr -> ctl_expr . IMPLIES ctl_expr
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for IMPLIES resolved as shift
+    $end            reduce using rule 13 (ctl_expr -> E ctl_expr U ctl_expr .)
+    RPAREN          reduce using rule 13 (ctl_expr -> E ctl_expr U ctl_expr .)
+    U               reduce using rule 13 (ctl_expr -> E ctl_expr U ctl_expr .)
+    AND             shift and go to state 16
+    OR              shift and go to state 17
+    IMPLIES         shift and go to state 18
+
+  ! AND             [ reduce using rule 13 (ctl_expr -> E ctl_expr U ctl_expr .) ]
+  ! OR              [ reduce using rule 13 (ctl_expr -> E ctl_expr U ctl_expr .) ]
+  ! IMPLIES         [ reduce using rule 13 (ctl_expr -> E ctl_expr U ctl_expr .) ]
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for AND in state 20 resolved as shift
+WARNING: shift/reduce conflict for OR in state 20 resolved as shift
+WARNING: shift/reduce conflict for IMPLIES in state 20 resolved as shift
+WARNING: shift/reduce conflict for U in state 21 resolved as shift
+WARNING: shift/reduce conflict for AND in state 21 resolved as shift
+WARNING: shift/reduce conflict for OR in state 21 resolved as shift
+WARNING: shift/reduce conflict for IMPLIES in state 21 resolved as shift
+WARNING: shift/reduce conflict for U in state 22 resolved as shift
+WARNING: shift/reduce conflict for AND in state 22 resolved as shift
+WARNING: shift/reduce conflict for OR in state 22 resolved as shift
+WARNING: shift/reduce conflict for IMPLIES in state 22 resolved as shift
+WARNING: shift/reduce conflict for AND in state 23 resolved as shift
+WARNING: shift/reduce conflict for OR in state 23 resolved as shift
+WARNING: shift/reduce conflict for IMPLIES in state 23 resolved as shift
+WARNING: shift/reduce conflict for AND in state 24 resolved as shift
+WARNING: shift/reduce conflict for OR in state 24 resolved as shift
+WARNING: shift/reduce conflict for IMPLIES in state 24 resolved as shift
+WARNING: shift/reduce conflict for AND in state 25 resolved as shift
+WARNING: shift/reduce conflict for OR in state 25 resolved as shift
+WARNING: shift/reduce conflict for IMPLIES in state 25 resolved as shift
+WARNING: shift/reduce conflict for AND in state 26 resolved as shift
+WARNING: shift/reduce conflict for OR in state 26 resolved as shift
+WARNING: shift/reduce conflict for IMPLIES in state 26 resolved as shift
+WARNING: shift/reduce conflict for AND in state 27 resolved as shift
+WARNING: shift/reduce conflict for OR in state 27 resolved as shift
+WARNING: shift/reduce conflict for IMPLIES in state 27 resolved as shift
+WARNING: shift/reduce conflict for AND in state 28 resolved as shift
+WARNING: shift/reduce conflict for OR in state 28 resolved as shift
+WARNING: shift/reduce conflict for IMPLIES in state 28 resolved as shift
+WARNING: shift/reduce conflict for AND in state 29 resolved as shift
+WARNING: shift/reduce conflict for OR in state 29 resolved as shift
+WARNING: shift/reduce conflict for IMPLIES in state 29 resolved as shift
+WARNING: shift/reduce conflict for AND in state 30 resolved as shift
+WARNING: shift/reduce conflict for OR in state 30 resolved as shift
+WARNING: shift/reduce conflict for IMPLIES in state 30 resolved as shift
+WARNING: shift/reduce conflict for AND in state 31 resolved as shift
+WARNING: shift/reduce conflict for OR in state 31 resolved as shift
+WARNING: shift/reduce conflict for IMPLIES in state 31 resolved as shift
+WARNING: shift/reduce conflict for AND in state 35 resolved as shift
+WARNING: shift/reduce conflict for OR in state 35 resolved as shift
+WARNING: shift/reduce conflict for IMPLIES in state 35 resolved as shift
+WARNING: shift/reduce conflict for AND in state 36 resolved as shift
+WARNING: shift/reduce conflict for OR in state 36 resolved as shift
+WARNING: shift/reduce conflict for IMPLIES in state 36 resolved as shift

@@ -1,0 +1,14 @@
+{
+  "states" : ["a", "b", "c"],
+  "initial_states" : ["a"],
+  "transitions" : {
+    "a" : ["b", "c"],
+    "b" : ["c"],
+    "c" : ["a"]
+  },
+  "labels" : {
+    "a" : ["p", "q"],
+    "b" : ["q"]
+  },
+  "ctl_formula" : "(AG p) -> AF !q"
+}
