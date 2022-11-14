@@ -25,7 +25,7 @@ class Lexer:
     }
 
     tokens = [
-        'label',
+        'atomic_proposition',
         'LPAREN',
         'RPAREN',
         'AND',
@@ -58,9 +58,9 @@ class Lexer:
     
     
     
-    def t_label(self, t):
+    def t_atomic_proposition(self, t):
         r'[a-zA-Z0-9_][a-zA-Z0-9_]*'
-        t.type = self.reserved.get(t.value, 'label')
+        t.type = self.reserved.get(t.value, 'atomic_proposition')
         return t        
 
     def t_error(self, t):
@@ -114,8 +114,8 @@ class Parser(object):
       p[0] = FALSE()
       logging.debug('p_ctl_expr: %s' % p[0])
 
-  def p_label_expr(self, p):      
-      p[0] = Label(p[1])
+  def p_atomic_proposition_expr(self, p):      
+      p[0] = AtomicProposition(p[1])
       logging.debug('p_ctl_expr: %s' % p[0])
 
   def p_not_expr(self, p):      

@@ -10,20 +10,20 @@ def read_spec(specfile):
     states = []
     initial_states = []
     transitions = {}
-    labels = {}
+    atomic_propositions = {}
     ctl_formula = None
     with open(specfile, 'r') as f:
       spec = json.load(f)
       states = spec['states']
       initial_states = spec['initial_states']
       transitions = spec['transitions']
-      labels = spec['labels']
+      atomic_propositions = spec['atomic_propositions']
       ctl_formula = spec['ctl_formula']
     kripke_structure = {
       'states': states,
       'initial_states': initial_states,
       'transitions': transitions,
-      'labels': labels,
+      'atomic_propositions': atomic_propositions,
     }
     return kripke_structure, ctl_formula
 

@@ -202,7 +202,7 @@ class Implies(AST):
   def __repr__(self):
     return 'Implies(%s, %s)' % (repr(self.arg1), repr(self.arg2))
 
-class Label(AST):
+class AtomicProposition(AST):
   def __init__(self, arg):
     self.arg = arg
     self._fields = ['arg']
@@ -214,7 +214,7 @@ class Label(AST):
     return [self.arg]
 
   def __repr__(self):
-    return 'Label(%s)' % repr(self.arg)
+    return 'AtomicProposition(%s)' % repr(self.arg)
 
 class TRUE(AST):
   def __init__(self):

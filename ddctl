@@ -15,7 +15,7 @@ def validate_kripke_structure(kripke_structure):
     states = kripke_structure['states']
     initial_states = kripke_structure['initial_states']
     transitions = kripke_structure['transitions']
-    labels = kripke_structure['labels']
+    atomic_propositions = kripke_structure['atomic_propositions']
     # Check if the initial states are in the states
     for state in initial_states:
         if state not in states:
@@ -30,10 +30,10 @@ def validate_kripke_structure(kripke_structure):
             if successor not in states:
                 print('Transition successor \'%s\' not in states' % successor)
                 return False
-    # Check if the labels are in the states
-    for label in labels:
-        if label not in states:
-            print('Label \'%s\' not in states' % label)
+    # Check if the atomic_propositions are in the states
+    for atomic_proposition in atomic_propositions:
+        if atomic_proposition not in states:
+            print('atomic_proposition \'%s\' not in states' % atomic_proposition)
             return False
         
     return True
@@ -42,14 +42,14 @@ def validate_formula(ct, kripke_structure):
     """Validate the CTL formula
     against the Kripke structure.
     """
-    labels = kripke_structure['labels']
-    labels = set([item for sublist in labels.values() for item in sublist])
+    atomic_propositions = kripke_structure['atomic_propositions']
+    atomic_propositions = set([item for sublist in atomic_propositions.values() for item in sublist])
     # Get the CTL formula
     ctl_formula = ct
     for node in ast.walk(ctl_formula):
-        if isinstance(node, Label):
-            if node.arg not in labels:
-                print('Label \'%s\' not in labels' % node.arg)
+        if isinstance(node, AtomicProposition):
+            if node.arg not in atomic_propositions:
+                print('atomic_proposition \'%s\' not in atomic_propositions' % node.arg)
                 return False
     return True
     
@@ -75,7 +75,16 @@ if not validate_formula(ct, kripke_structure):
 
 print(ast.dump(ct))
 
-# TODO(raghu): implement the CTL model checker using PYDD
+import ksBDD
+
+init, T, ap = ksBDD.KripkeStructureBDD(kripke_structure)
+print('init: %s' % init)
+print('T: %s' % T)
+print('ap: %s' % ap)
+
+
+
+
 
 
             

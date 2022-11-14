@@ -16,7 +16,7 @@ grammar = {
         ('p_paren_expr', """ctl_expr : LPAREN ctl_expr RPAREN"""),
         ('p_true_expr', """ctl_expr : TRUE"""),
         ('p_false_expr', """ctl_expr : FALSE"""),
-        ('p_label_expr', """ctl_expr : label"""),
+        ('p_atomic_proposition_expr', """ctl_expr : atomic_proposition"""),
         ('p_not_expr', """ctl_expr : NOT ctl_expr"""),
         ('p_and_expr', """ctl_expr : ctl_expr AND ctl_expr"""),
         ('p_or_expr', """ctl_expr : ctl_expr OR ctl_expr"""),

@@ -24,6 +24,8 @@ The JSON file should contain the kripke structure and the CTL formula you want t
 
 The output will give you $K \models \varphi$ or $K \not \models \varphi$, where $K$ is the kripke structure and $\varphi$ is the CTL formula. If it doesn't model, it will also give you a counterexample.
 
+* No RELEASE operator yet
+
 ***Example Specfile:***
 
 ```
