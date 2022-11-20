@@ -1,14 +1,14 @@
 {
   "states" : ["a", "b", "c"],
-  "initial_states" : ["a"],
-  "transitions" : {
+  "init" : ["a"],
+  "T" : {
     "a" : ["b"],
     "b" : ["a", "c"],
     "c" : ["a", "c"]
   },
-  "atomic_propositions" : {
+  "ap" : {
     "b" : ["q"],
     "c" : ["p"]
   },
-  "ctl_formula" : "(AG p) -> AF !q"
+  "ctlf" : "(AG p) -> AR !q"
 } 

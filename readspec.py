@@ -8,24 +8,27 @@ def read_spec(specfile):
     the CTL formula.
     """
     states = []
-    initial_states = []
-    transitions = {}
-    atomic_propositions = {}
-    ctl_formula = None
+    init = []
+    T = {}
+    ap = {}
+    ctlf = None
+
     with open(specfile, 'r') as f:
       spec = json.load(f)
       states = spec['states']
-      initial_states = spec['initial_states']
-      transitions = spec['transitions']
-      atomic_propositions = spec['atomic_propositions']
-      ctl_formula = spec['ctl_formula']
-    kripke_structure = {
+      init = spec['init']
+      T = spec['T']
+      ap = spec['ap']
+      ctlf = spec['ctlf']
+
+    ks = {
       'states': states,
-      'initial_states': initial_states,
-      'transitions': transitions,
-      'atomic_propositions': atomic_propositions,
+      'init': init,
+      'T': T,
+      'ap': ap,
     }
-    return kripke_structure, ctl_formula
+
+    return ks, ctlf
 
 
 

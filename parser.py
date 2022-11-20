@@ -54,9 +54,6 @@ class Lexer:
 
     def token(self):
         return self.lexer.token()
-
-    
-    
     
     def t_atomic_proposition(self, t):
         r'[a-zA-Z0-9_][a-zA-Z0-9_]*'
@@ -96,6 +93,7 @@ class Parser(object):
     self.parser = yacc.yacc(module=self)
 
   def parse(self, ctl_formula):
+      self.parsedata = ctl_formula
       return self.parser.parse(ctl_formula, lexer=Lexer())
 
   def p_ctl(self, p):      
@@ -175,5 +173,37 @@ class Parser(object):
       logging.debug('p_ctl_expr: %s' % p[0])
 
   def p_error(self, p):
-      raise Exception('Syntax error at %s' % p.value)
+      # use logging.error and give a more detailed error message
+      # e.g. "Syntax error at '%s'" % p.value and color the error
+        # in the formula
+      dummy = 'Syntax error in formula '
+      logging.error('Syntax error in formula: %s' % self.parsedata)
+      for char in self.parsedata:
+        if char == p.value:
+            logging.error(
+                ' ' * (len(dummy) + self.parsedata.index(char) - 1) + '\033[1;31m^\033[0m')
+            break
 
+                
+    
+
+
+# Logger configuration
+debug = False
+if debug:
+    logging.basicConfig(level=logging.DEBUG,
+                        format='%(levelname)s: %(message)s')
+else:
+    logging.basicConfig(level=logging.INFO,
+                        format='%(levelname)s: %(message)s')
+
+# set error and warning colors
+logging.addLevelName(logging.ERROR, "\033[1;31m%s\033[1;0m" % logging.getLevelName(logging.ERROR))
+logging.addLevelName(logging.WARNING, "\033[1;33m%s\033[1;0m" % logging.getLevelName(logging.WARNING))
+logging.addLevelName(logging.DEBUG, "\033[1;34m%s\033[1;0m" % logging.getLevelName(logging.DEBUG))
+
+
+# set up parser
+def parse(ctl_formula, subset='ctl'):
+    parser = Parser(subset)
+    return parser.parse(ctl_formula)

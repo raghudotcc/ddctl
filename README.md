@@ -31,17 +31,17 @@ The output will give you $K \models \varphi$ or $K \not \models \varphi$, where 
 ```
 {
   "states" : ["a", "b", "c"],
-  "initial_states" : ["a"],
-  "transitions" : {
+  "init" : ["a"],
+  "T" : {
     "a" : ["b", "c"],
     "b" : ["c"],
     "c" : ["a"]
   },
-  "labels" : {
+  "ap" : {
     "a" : ["p", "q"],
     "b" : ["q"]
   },
-  "ctl_formula" : "(AG p) -> AF !q"
+  "ctlf" : "(AG p) -> AF !q"
 }
 ```
 
