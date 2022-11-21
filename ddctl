@@ -1,12 +1,7 @@
 #!/usr/bin/python
-
-from ksbdd import *
 import readspec
-import parser
-import ast
-import sys
 import argparse
-from nodes import *
+from model import *
 
 # Parse command line arguments
 # ddctl.py -s <specfile.json> -m <cli | gui>
@@ -17,14 +12,9 @@ args = argparser.parse_args()
 
 ks, ctlf = readspec.read_spec(args.specfile)
 
-ctl_ast = parser.parse(ctlf)
+ksbdd = ksBDD(ks)
 
-ksbdd = ksBDD(ks, ctlf)
-init_bdd = ksbdd.bdd_init()
-T_bdd = ksbdd.bdd_T()
-ap_bdd = ksbdd.bdd_ap() # {k, v} of aps and their bdd encodings
-
-# m = Model(ksbdd, init_bdd, T_bdd, ap_bdd, ctl_ast)
+m = Model(ks, ctlf)
 
 # if m.check() == False:
 #     print("Counterexample: ", m.counterexample)

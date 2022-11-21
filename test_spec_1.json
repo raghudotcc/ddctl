@@ -10,5 +10,5 @@
     "b" : ["q"],
     "c" : ["p"]
   },
-  "ctlf" : "(AG p) -> AR !q"
+  "ctlf" : "(AG p) -> False"
 } 

@@ -11,8 +11,6 @@ import logging
 
 class Lexer:
     reserved = {
-        'TRUE': 'TRUE',
-        'FALSE': 'FALSE',
         'A' : 'A',
         'E' : 'E',
         'U' : 'U',
@@ -33,6 +31,8 @@ class Lexer:
         'IMPLIES',
         'NOT',
         'WHITESPACE',
+        'FALSE',
+        'TRUE',
     ] + list(reserved.values())
 
     t_LPAREN = r'\('
@@ -54,6 +54,17 @@ class Lexer:
 
     def token(self):
         return self.lexer.token()
+
+    def t_FALSE(self, t):
+        r'false|False|FALSE'
+        t.value = False
+        return t
+    
+    def t_TRUE(self, t):
+        r'true|True|TRUE'
+        t.value = True
+        return t
+        
     
     def t_atomic_proposition(self, t):
         r'[a-zA-Z0-9_][a-zA-Z0-9_]*'
