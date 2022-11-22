@@ -16,6 +16,9 @@ ksbdd = ksBDD(ks)
 
 m = Model(ks, ctlf)
 
+result = m.check()
+print(reduce(mergecur, ksbdd.infer(result))) # test inference
+
 # if m.check() == False:
 #     print("Counterexample: ", m.counterexample)
 # else:

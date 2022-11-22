@@ -15,7 +15,7 @@ class ksBDD:
     self.nvar = len(bin(len(self.states))[2:])
     self.x = [self.mgr.bddVar(2*i,   'x' + str(i)) for i in range(self.nvar)]
     self.y = [self.mgr.bddVar(2*i+1, 'y' + str(i)) for i in range(self.nvar)]
-    # Auxiliary cube for preimage computation.
+    self.xcube = reduce(conjoin, self.x)
     self.ycube = reduce(conjoin, self.y)
     self.states_bit_vec = self.bdd_encodings_for_states()
   
@@ -89,17 +89,20 @@ class ksBDD:
       x = re.findall(r'[~]?x\d+', cube)
       # find all the states that satisfy x
       current_states = []
-      for state in self.states:
-        state_bit_vec = self.states_bit_vec[state]
-        for i in range(len(x)):
-          if x[i][0] == '~':
-            if state_bit_vec[i] == '1':
-              break
+      if x:
+        for state in self.states:
+          # check if the state satisfies the cube
+          for i in range(self.nvar):
+            if 'x' + str(i) in x:
+              if self.states_bit_vec[state][i] == '0':
+                break
+            elif '~x' + str(i) in x:
+              if self.states_bit_vec[state][i] == '1':
+                break
           else:
-            if state_bit_vec[i] == '0':
-              break
-        else:
-          current_states.append(state)
+            current_states.append(state)
+         
+        
 
 
 
@@ -107,17 +110,18 @@ class ksBDD:
       y = re.findall(r'[~]?y\d+', cube)
       # find all the states that satisfy y
       next_states = []
-      for state in self.states:
-        state_bit_vec = self.states_bit_vec[state]
-        for i in range(len(y)):
-          if y[i][0] == '~':
-            if state_bit_vec[i] == '1':
-              break
+      if y:
+        for state in self.states:
+          # check if the state satisfies the cube
+          for i in range(self.nvar):
+            if 'y' + str(i) in y:
+              if self.states_bit_vec[state][i] == '0':
+                break
+            elif '~y' + str(i) in y:
+              if self.states_bit_vec[state][i] == '1':
+                break
           else:
-            if state_bit_vec[i] == '0':
-              break
-        else:
-          next_states.append(state)
+            next_states.append(state)
           
       inferred_states.append({ 'current_states': current_states, 'next_states': next_states })
     
