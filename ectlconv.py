@@ -16,11 +16,13 @@ class ECTLConverter(ast.NodeTransformer):
       new = node
       node = self.visit(node)
 
+    # send new, node changes inside the for loop 
+    # because of the ast.walk
     for node in ast.walk(node):
       if isinstance(node, Not):
-        if not isinstance(node, AtomicProposition):
-          return (False, node)
-    return (True, node)
+        if not isinstance(node.arg, AtomicProposition):
+          return (False, new)
+    return (True, new)
 
   def visit_AX(self, node):
     """Visit the AX node"""
@@ -55,7 +57,7 @@ class ECTLConverter(ast.NodeTransformer):
   def visit_EF(self, node):
     """Visit the EF node"""
     phi = self.visit(node.arg)
-    return EF(phi)
+    return EU(TRUE(), phi)
 
   def visit_EX(self, node):
     """Visit the EX node"""
@@ -96,4 +98,10 @@ class ECTLConverter(ast.NodeTransformer):
     return Or(Not(phi), psi)
 
   def visit_AtomicProposition(self, node):
+    return node
+
+  def visit_TRUE(self, node):
+    return node
+
+  def visit_FALSE(self, node):
     return node

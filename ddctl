@@ -18,11 +18,11 @@ ks, ctlf = readspec.read_spec(args.specfile)
 
 isectl, ectlf = ECTLConverter().ectl(parser.parse(ctlf))
 
-if not isectl:
-    logging.error("CTL formula + '%s' is not ECTL" % ectlf.body)
-    exit(1)
+# if not isectl:
+#     logging.error("CTL formula + '%s' is not ECTL" % ectlf.body)
+#     exit(1)
 
-
+print(ectlf.body)
 
 ksbdd = ksBDD(ks)
 
