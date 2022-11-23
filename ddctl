@@ -1,7 +1,11 @@
 #!/usr/bin/python
 import readspec
 import argparse
+import parser
+from util import *
 from model import *
+from ectlconv import *
+import logging
 
 # Parse command line arguments
 # ddctl.py -s <specfile.json> -m <cli | gui>
@@ -12,9 +16,17 @@ args = argparser.parse_args()
 
 ks, ctlf = readspec.read_spec(args.specfile)
 
+isectl, ectlf = ECTLConverter().ectl(parser.parse(ctlf))
+
+if not isectl:
+    logging.error("CTL formula + '%s' is not ECTL" % ectlf.body)
+    exit(1)
+
+
+
 ksbdd = ksBDD(ks)
 
-m = Model(ks, ctlf)
+m = Model(ks, ectlf)
 
 result = m.check()
 print(reduce(mergecur, ksbdd.infer(result))) # test inference
@@ -23,3 +35,4 @@ print(reduce(mergecur, ksbdd.infer(result))) # test inference
 #     print("Counterexample: ", m.counterexample)
 # else:
 #     print("The CTL formula is valid")
+

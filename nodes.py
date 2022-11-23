@@ -12,7 +12,7 @@ class A(AST):
     return [self.arg]
 
   def __repr__(self):
-    return 'A(%s)' % repr(self.arg)
+    return 'A %s' % repr(self.arg)
 
 class AX(AST):
   def __init__(self, arg):
@@ -26,7 +26,7 @@ class AX(AST):
     return [self.arg]
 
   def __repr__(self):
-    return 'AX(%s)' % repr(self.arg)
+    return 'AX %s' % repr(self.arg)
 
 class AF(AST):
   def __init__(self, arg):
@@ -40,7 +40,7 @@ class AF(AST):
     return [self.arg]
 
   def __repr__(self):
-    return 'AF(%s)' % repr(self.arg)
+    return 'AF %s' % repr(self.arg)
 
 class AG(AST):
   def __init__(self, arg):
@@ -54,7 +54,7 @@ class AG(AST):
     return [self.arg]
 
   def __repr__(self):
-    return 'AG(%s)' % repr(self.arg)
+    return 'AG %s' % repr(self.arg)
 
 class AU(AST):
   def __init__(self, arg1, arg2):
@@ -69,7 +69,7 @@ class AU(AST):
     return [self.arg1, self.arg2]
 
   def __repr__(self):
-    return 'AU(%s, %s)' % (repr(self.arg1), repr(self.arg2))
+    return 'A %s U %s' % (repr(self.arg1), repr(self.arg2))
 
 class E(AST):
   def __init__(self, arg):
@@ -83,7 +83,7 @@ class E(AST):
     return [self.arg]
 
   def __repr__(self):
-    return 'E(%s)' % repr(self.arg)
+    return 'E %s' % repr(self.arg)
 
 class EX(AST):
   def __init__(self, arg):
@@ -97,7 +97,7 @@ class EX(AST):
     return [self.arg]
 
   def __repr__(self):
-    return 'EX(%s)' % repr(self.arg)
+    return 'EX %s' % repr(self.arg)
 
 class EF(AST):
   def __init__(self, arg):
@@ -111,7 +111,7 @@ class EF(AST):
     return [self.arg]
 
   def __repr__(self):
-    return 'EF(%s)' % repr(self.arg)
+    return 'EF %s' % repr(self.arg)
 
 class EG(AST):
   def __init__(self, arg):
@@ -125,7 +125,7 @@ class EG(AST):
     return [self.arg]
 
   def __repr__(self):
-    return 'EG(%s)' % repr(self.arg)
+    return 'EG %s' % repr(self.arg)
 
 class EU(AST):
   def __init__(self, arg1, arg2):
@@ -140,7 +140,7 @@ class EU(AST):
     return [self.arg1, self.arg2]
 
   def __repr__(self):
-    return 'EU(%s, %s)' % (repr(self.arg1), repr(self.arg2))
+    return 'E %s U %s' % (repr(self.arg1), repr(self.arg2))
 
 
 class Not(AST):
@@ -155,7 +155,7 @@ class Not(AST):
     return [self.arg]
 
   def __repr__(self):
-    return 'Not(%s)' % repr(self.arg)
+    return '¬ %s' % repr(self.arg)
 
 class And(AST):
   def __init__(self, arg1, arg2):
@@ -170,7 +170,7 @@ class And(AST):
     return [self.arg1, self.arg2]
 
   def __repr__(self):
-    return 'And(%s, %s)' % (repr(self.arg1), repr(self.arg2))
+    return '%s ∧ %s' % (repr(self.arg1), repr(self.arg2))
 
 class Or(AST):
   def __init__(self, arg1, arg2):
@@ -185,7 +185,7 @@ class Or(AST):
     return [self.arg1, self.arg2]
 
   def __repr__(self):
-    return 'Or(%s, %s)' % (repr(self.arg1), repr(self.arg2))
+    return '%s ∨ %s' % (repr(self.arg1), repr(self.arg2))
 
 class Implies(AST):
   def __init__(self, arg1, arg2):
@@ -200,7 +200,7 @@ class Implies(AST):
     return [self.arg1, self.arg2]
 
   def __repr__(self):
-    return 'Implies(%s, %s)' % (repr(self.arg1), repr(self.arg2))
+    return '%s → %s' % (repr(self.arg1), repr(self.arg2))
 
 class AtomicProposition(AST):
   def __init__(self, arg):
@@ -214,7 +214,7 @@ class AtomicProposition(AST):
     return [self.arg]
 
   def __repr__(self):
-    return 'AtomicProposition(%s)' % repr(self.arg)
+    return '%s' % self.arg
 
 class TRUE(AST):
   def __init__(self):

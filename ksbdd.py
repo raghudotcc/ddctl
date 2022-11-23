@@ -69,6 +69,8 @@ class ksBDD:
   def infer(self, encoding):
     """Return the inferred states."""
     encoding = str(encoding)
+    inferred_states = [] 
+    
     dnf = re.split(r'\|\s*(?![^()]*\))', encoding)
     for cube in dnf:
       if '(' in cube:
@@ -82,54 +84,37 @@ class ksBDD:
           cube = outside_parentheses + item
           dnf.append(cube)
 
-    inferred_states = []
-
     for cube in dnf:
-      # get all the x's in the cube
-      x = re.findall(r'[~]?x\d+', cube)
-      # find all the states that satisfy x
-      current_states = []
-      if x:
-        for state in self.states:
-          # check if the state satisfies the cube
-          for i in range(self.nvar):
-            if 'x' + str(i) in x:
-              if self.states_bit_vec[state][i] == '0':
-                break
-            elif '~x' + str(i) in x:
-              if self.states_bit_vec[state][i] == '1':
-                break
-          else:
-            current_states.append(state)
-         
-        
-
-
-
-      # get all the y's in the cube
-      y = re.findall(r'[~]?y\d+', cube)
-      # find all the states that satisfy y
-      next_states = []
-      if y:
-        for state in self.states:
-          # check if the state satisfies the cube
-          for i in range(self.nvar):
-            if 'y' + str(i) in y:
-              if self.states_bit_vec[state][i] == '0':
-                break
-            elif '~y' + str(i) in y:
-              if self.states_bit_vec[state][i] == '1':
-                break
-          else:
-            next_states.append(state)
+      curr_states = self.get_states_from_bdd('x', cube, encoding)
+      next_states = self.get_states_from_bdd('y', cube)
           
-      inferred_states.append({ 'current_states': current_states, 'next_states': next_states })
+      inferred_states.append({ 'current_states': curr_states, 'next_states': next_states })
     
       
     return inferred_states
     
     
-    
+  def get_states_from_bdd(self, var, cube, encoding=None):
+    if (encoding == 'true'):
+      return self.states
+    elif (encoding == 'false'):
+      return []
+    else:
+      v = re.findall(r'[~]?' + var + r'\d+', cube)
+      states = []
+      if v:
+        for state in self.states:
+          # check if the state satisfies the cube
+          for i in range(self.nvar):
+            if var + str(i) in v:
+              if self.states_bit_vec[state][i] == '0':
+                break
+            elif '~' + var + str(i) in v:
+              if self.states_bit_vec[state][i] == '1':
+                break
+          else:
+            states.append(state)
+      return states
 
     
       
