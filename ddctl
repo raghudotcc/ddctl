@@ -8,7 +8,7 @@ from ectlconv import *
 import logging
 
 # Parse command line arguments
-# ddctl.py -s <specfile.json> [--include-init] [--ectl-only] [--output <outputfile.png>]
+# ddctl.py -s <specfile.json> [--include-init] [--ectl-only] [--output <outputfile>]
 
 argparser = argparse.ArgumentParser(description='Parse a CTL formula')
 argparser.add_argument('-s', '--specfile', help='specfile.json', required=True)

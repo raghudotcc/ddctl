@@ -13,7 +13,7 @@ $ ddctl -h
 ### Model Checking
 
 ```bash
-$ ddctl -s SPECFILE
+$ ./ddctl -s <specfile.json> [--include-init] [--ectl-only] [--output <outputfile>]
 ```
 
 ## SPECFILE
@@ -47,7 +47,29 @@ The output will give you $K \models \varphi$ or $K \not \models \varphi$, where 
 
 * Note: labels are atomic propositions
 
-## Building
+## Dependencies
+
+- Graphviz (for visualization)
+- CuDD (for BDDs)
+
+
+## Getting Dependencies
+
+### Graphviz
+
+If you don't have graphviz installed, you can install it with:
+
+```bash
+$ sudo apt-get install graphviz
+```
+
+Install python bindings:
+
+```bash
+pip3 install graphviz
+```
+
+### CuDD
 
 The project internally uses`cudd` python bindings called `PyDD` for BDDs. The tar file for both `cudd` and `PyDD` are included in the `lib` folder. To build the project, you need to have `python3`, `cython` and `python3-dev` installed.
 
