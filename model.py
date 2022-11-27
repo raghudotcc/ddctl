@@ -98,7 +98,9 @@ class CTLVisitor(ast.NodeVisitor):
   def visit_Module(self, node):
     module = self.visit(node.body)
     if self.output:
-      print(self.output)
+      # if the output filename contains .png, then remove it
+      if self.output.endswith('.png'):
+        self.output = self.output[:-4]
       self.graph.render(self.output)
     return module
 

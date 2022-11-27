@@ -7,7 +7,7 @@ A BDD-based toy model checker for CTL (Computational Tree Logic).
 ### Help
 
 ```bash
-$ ddctl -h
+$ ./ddctl -h
 ```
 
 ### Model Checking
@@ -50,7 +50,7 @@ The output will give you $K \models \varphi$ or $K \not \models \varphi$, where 
 ## Dependencies
 
 - Graphviz (for visualization)
-- CuDD (for BDDs)
+- PyDD - CuDD Python Binding  (for BDDs)
 
 
 ## Getting Dependencies
