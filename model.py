@@ -1,12 +1,16 @@
 from ksbdd import *
 import parser
 import ast
+import graphviz
+from util import *
+import subprocess
+import uuid
 
 
 class Model:
-  def __init__(self, ks, ctlf_ast):
+  def __init__(self, ks, ctlf_ast, include_init=False, output=None):
     self.ctlf_ast = ctlf_ast
-    self.ctl_visitor = CTLVisitor(ks)
+    self.ctl_visitor = CTLVisitor(ks, include_init, output)
 
   def check(self):
     """Check the CTL formula"""
@@ -14,12 +18,16 @@ class Model:
 
 
 class CTLVisitor(ast.NodeVisitor):
-  def __init__(self, ks):
+  def __init__(self, ks, include_init=False, output=None):
     self.ks = ks
     self.ksbdd = ksBDD(ks)
     self.init = self.ksbdd.get_init_bdd()
     self.T = self.ksbdd.get_T_bdd()
     self.ap = self.ksbdd.get_ap_bdd()
+    self.include_init = include_init
+    self.output = output
+    self.graph = graphviz.Digraph(format='png',
+                                  graph_attr={'rankdir': 'BT', 'splines': 'ortho'})
 
   def image(self, TR, From):
     """ Computes image with transition relation. """
@@ -38,7 +46,10 @@ class CTLVisitor(ast.NodeVisitor):
     while Z != zeta:
       zeta = Z
       Z &= self.preimage(self.T, Z)
-    return Z
+    if self.include_init:
+      return Z if self.init <= Z else self.ksbdd.mgr.bddZero()
+    else:
+      return Z
 
   def computeEF(self, phi):
     """EF phi least fixpoint computation"""
@@ -47,7 +58,10 @@ class CTLVisitor(ast.NodeVisitor):
     while Z != zeta:
       zeta = Z
       Z |= self.image(self.T, Z)
-    return Z
+    if self.include_init:
+      return Z if self.init <= Z else self.ksbdd.mgr.bddZero()
+    else:
+      return Z
 
   def computeEU(self, phi, psi):
     """Compute the EU of phi and psi"""
@@ -56,7 +70,10 @@ class CTLVisitor(ast.NodeVisitor):
     while Z != zeta:
       zeta = Z
       Z = self.computeOr(Z, self.computeAnd(phi, self.preimage(self.T, Z)))
-    return Z
+    if self.include_init:
+      return Z if self.init <= Z else self.ksbdd.mgr.bddZero()
+    else:
+      return Z
 
   def computeEX(self, phi):
     """Compute the EX of phi"""
@@ -80,84 +97,154 @@ class CTLVisitor(ast.NodeVisitor):
 
   def visit_Module(self, node):
     module = self.visit(node.body)
-    print("Module: ", self.ksbdd.infer(module))
+    if self.output:
+      print(self.output)
+      self.graph.render(self.output)
     return module
 
   def visit_EU(self, node):
     """Visit the EU node"""
-    phi = self.visit(node.arg1)
-    psi = self.visit(node.arg2)
+    phi, phi_iden = self.visit(node.arg1)
+    psi, psi_iden = self.visit(node.arg2)
     eu = self.computeEU(phi, psi)
-    print("EU: ", self.ksbdd.infer(eu))
-    return eu
+
+    label = 'EU\n' + \
+        str(reduce(mergecur, self.ksbdd.infer(eu))['current_states'])
+    iden = uuid.uuid4().hex
+    self.graph.node(iden, label)
+    self.graph.edge(phi_iden, iden)
+    self.graph.edge(psi_iden, iden)
+    return (eu, iden)
 
   def visit_EG(self, node):
     """Visit the EG node"""
-    phi = self.visit(node.arg)
+    phi, phi_iden = self.visit(node.arg)
     eg = self.computeEG(phi)
-    print("EG: ", self.ksbdd.infer(eg))
-    return eg
+
+    label = 'EG\n' + \
+        str(reduce(mergecur, self.ksbdd.infer(eg))['current_states'])
+    iden = uuid.uuid4().hex
+    self.graph.node(iden, label)
+    self.graph.edge(phi_iden, iden)
+
+    return (eg, iden)
 
   def visit_EF(self, node):
     """Visit the EF node"""
-    phi = self.visit(node.arg)
+    phi, phi_iden = self.visit(node.arg)
     ef = self.computeEF(phi)
-    print("EF: ", self.ksbdd.infer(ef))
+
+    label = 'EF\n' + \
+        str(reduce(mergecur, self.ksbdd.infer(ef))['current_states'])
+    iden = uuid.uuid4().hex
+    self.graph.node(iden, label)
+    self.graph.edge(phi_iden, iden)
+
+    return (ef, iden)
 
   def visit_EX(self, node):
     """Visit the EX node"""
-    phi = self.visit(node.arg)
+    phi, phi_iden = self.visit(node.arg)
     ex = self.computeEX(phi)
-    print("EX: ", self.ksbdd.infer(ex))
-    return ex
+
+    label = 'EX\n' + \
+        str(reduce(mergecur, self.ksbdd.infer(ex))['current_states'])
+    iden = uuid.uuid4().hex
+    self.graph.node(iden, label)
+    self.graph.edge(phi_iden, iden)
+
+    return (ex, iden)
 
   def visit_Not(self, node):
     """Visit the Not node"""
-    phi = self.visit(node.arg)
+    phi, phi_iden = self.visit(node.arg)
     nt = self.computeNot(phi)
-    print("Not: ", self.ksbdd.infer(nt))
-    return nt
+
+    label = '¬ \n' + \
+        str(reduce(mergecur, self.ksbdd.infer(nt))['current_states'])
+    iden = uuid.uuid4().hex
+    self.graph.node(iden, label)
+    self.graph.edge(phi_iden, iden)
+
+    return (nt, iden)
 
   def visit_And(self, node):
     """Visit the And node"""
-    phi = self.visit(node.arg1)
-    psi = self.visit(node.arg2)
+    phi, phi_iden = self.visit(node.arg1)
+    psi, psi_iden = self.visit(node.arg2)
     nd = self.computeAnd(phi, psi)
-    print("And: ", self.ksbdd.infer(nd))
-    return nd
+
+    label = '∧ \n' + \
+        str(reduce(mergecur, self.ksbdd.infer(nd))['current_states'])
+    iden = uuid.uuid4().hex
+    self.graph.node(iden, label)
+    self.graph.edge(phi_iden, iden)
+    self.graph.edge(psi_iden, iden)
+
+    return (nd, iden)
 
   def visit_Or(self, node):
     """Visit the Or node"""
-    phi = self.visit(node.arg1)
-    psi = self.visit(node.arg2)
+    phi, phi_iden = self.visit(node.arg1)
+    psi, psi_iden = self.visit(node.arg2)
     r = self.computeOr(phi, psi)
-    print("Or: ", self.ksbdd.infer(r))
-    return r
+
+    label = '∨ \n' + \
+        str(reduce(mergecur, self.ksbdd.infer(r))['current_states'])
+    iden = uuid.uuid4().hex
+    self.graph.node(iden, label)
+    self.graph.edge(phi_iden, iden)
+    self.graph.edge(psi_iden, iden)
+
+    return (r, iden)
 
   def visit_Implies(self, node):
     """Visit the Implies node"""
-    phi = self.visit(node.arg1)
-    psi = self.visit(node.arg2)
+    phi, phi_iden = self.visit(node.arg1)
+    psi, psi_iden = self.visit(node.arg2)
     imp = self.computeImplies(phi, psi)
-    print("Implies: ", self.ksbdd.infer(imp))
-    return imp
+
+    label = '→ \n' + \
+        str(reduce(mergecur, self.ksbdd.infer(imp))['current_states'])
+    iden = uuid.uuid4().hex
+    self.graph.node(iden, label)
+    self.graph.edge(phi_iden, iden)
+    self.graph.edge(psi_iden, iden)
+
+    return (imp, iden)
   
   def visit_AtomicProposition(self, node):
     """Visit the AtomicProposition node"""
     lbl = self.ap[node.arg]
-    print("%s : " % node.arg, self.ksbdd.infer(lbl))
-    return lbl
+
+    label = node.arg + '\n' + \
+        str(reduce(mergecur, self.ksbdd.infer(lbl))['current_states'])
+    iden = uuid.uuid4().hex
+    self.graph.node(iden, label)
+
+    return (lbl, iden)
 
   def visit_TRUE(self, node):
     """Visit the True node"""
     als = self.ksbdd.mgr.bddOne()
-    print("TRUE: ", self.ksbdd.infer(als))
-    return als
+
+    label = 'TRUE\n' + \
+        str(reduce(mergecur, self.ksbdd.infer(als))['current_states'])
+    iden = uuid.uuid4().hex
+    self.graph.node(iden, label)
+
+    return (als, iden)
 
   def visit_FALSE(self, node):
     """Visit the False node"""
     als = self.ksbdd.mgr.bddZero()
-    print("FALSE: ", self.ksbdd.infer(als))
-    return als
 
+    label = 'FALSE\n' + \
+        str(reduce(mergecur, self.ksbdd.infer(als))['current_states'])
+
+    iden = uuid.uuid4().hex
+    self.graph.node(iden, label)
+
+    return (als, iden)
   
+
