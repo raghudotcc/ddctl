@@ -110,8 +110,8 @@ class CTLVisitor(ast.NodeVisitor):
     psi, psi_iden = self.visit(node.arg2)
     eu = self.computeEU(phi, psi)
 
-    label = 'EU\n' + \
-        str(reduce(mergecur, self.ksbdd.infer(eu))['current_states'])
+    label = 'EU\n\n{' + ', '.join(reduce(mergecur,
+                                self.ksbdd.infer(eu))['current_states']) + '}'
     iden = uuid.uuid4().hex
     self.graph.node(iden, label)
     self.graph.edge(phi_iden, iden)
@@ -123,8 +123,8 @@ class CTLVisitor(ast.NodeVisitor):
     phi, phi_iden = self.visit(node.arg)
     eg = self.computeEG(phi)
 
-    label = 'EG\n' + \
-        str(reduce(mergecur, self.ksbdd.infer(eg))['current_states'])
+    label = 'EG\n\n{' + ', '.join(reduce(mergecur,
+                                self.ksbdd.infer(eg))['current_states']) + '}'
     iden = uuid.uuid4().hex
     self.graph.node(iden, label)
     self.graph.edge(phi_iden, iden)
@@ -136,8 +136,8 @@ class CTLVisitor(ast.NodeVisitor):
     phi, phi_iden = self.visit(node.arg)
     ef = self.computeEF(phi)
 
-    label = 'EF\n' + \
-        str(reduce(mergecur, self.ksbdd.infer(ef))['current_states'])
+    label = 'EF\n\n{' + ', '.join(reduce(mergecur,
+                                self.ksbdd.infer(ef))['current_states']) + '}'
     iden = uuid.uuid4().hex
     self.graph.node(iden, label)
     self.graph.edge(phi_iden, iden)
@@ -149,8 +149,8 @@ class CTLVisitor(ast.NodeVisitor):
     phi, phi_iden = self.visit(node.arg)
     ex = self.computeEX(phi)
 
-    label = 'EX\n' + \
-        str(reduce(mergecur, self.ksbdd.infer(ex))['current_states'])
+    label = 'EX\n\n{' + ', '.join(reduce(mergecur,
+                                self.ksbdd.infer(ex))['current_states']) + '}'
     iden = uuid.uuid4().hex
     self.graph.node(iden, label)
     self.graph.edge(phi_iden, iden)
@@ -162,8 +162,8 @@ class CTLVisitor(ast.NodeVisitor):
     phi, phi_iden = self.visit(node.arg)
     nt = self.computeNot(phi)
 
-    label = '¬ \n' + \
-        str(reduce(mergecur, self.ksbdd.infer(nt))['current_states'])
+    label = '¬ \n\n{' + ', '.join(reduce(mergecur,
+                                self.ksbdd.infer(nt))['current_states']) + '}'
     iden = uuid.uuid4().hex
     self.graph.node(iden, label)
     self.graph.edge(phi_iden, iden)
@@ -176,8 +176,8 @@ class CTLVisitor(ast.NodeVisitor):
     psi, psi_iden = self.visit(node.arg2)
     nd = self.computeAnd(phi, psi)
 
-    label = '∧ \n' + \
-        str(reduce(mergecur, self.ksbdd.infer(nd))['current_states'])
+    label = '∧ \n\n{' + ', '.join(reduce(mergecur,
+                                self.ksbdd.infer(nd))['current_states']) + '}'
     iden = uuid.uuid4().hex
     self.graph.node(iden, label)
     self.graph.edge(phi_iden, iden)
@@ -191,8 +191,8 @@ class CTLVisitor(ast.NodeVisitor):
     psi, psi_iden = self.visit(node.arg2)
     r = self.computeOr(phi, psi)
 
-    label = '∨ \n' + \
-        str(reduce(mergecur, self.ksbdd.infer(r))['current_states'])
+    label = '∨ \n\n{' + ', '.join(reduce(mergecur,
+                                self.ksbdd.infer(r))['current_states']) + '}'
     iden = uuid.uuid4().hex
     self.graph.node(iden, label)
     self.graph.edge(phi_iden, iden)
@@ -206,8 +206,8 @@ class CTLVisitor(ast.NodeVisitor):
     psi, psi_iden = self.visit(node.arg2)
     imp = self.computeImplies(phi, psi)
 
-    label = '→ \n' + \
-        str(reduce(mergecur, self.ksbdd.infer(imp))['current_states'])
+    label = '→ \n\n{' + ', '.join(reduce(mergecur,
+                                self.ksbdd.infer(imp))['current_states']) + '}'
     iden = uuid.uuid4().hex
     self.graph.node(iden, label)
     self.graph.edge(phi_iden, iden)
@@ -219,8 +219,8 @@ class CTLVisitor(ast.NodeVisitor):
     """Visit the AtomicProposition node"""
     lbl = self.ap[node.arg]
 
-    label = node.arg + '\n' + \
-        str(reduce(mergecur, self.ksbdd.infer(lbl))['current_states'])
+    label = node.arg + '\n\n{' + ', '.join(reduce(mergecur,
+                                self.ksbdd.infer(lbl))['current_states']) + '}'
     iden = uuid.uuid4().hex
     self.graph.node(iden, label)
 
@@ -230,8 +230,8 @@ class CTLVisitor(ast.NodeVisitor):
     """Visit the True node"""
     als = self.ksbdd.mgr.bddOne()
 
-    label = 'TRUE\n' + \
-        str(reduce(mergecur, self.ksbdd.infer(als))['current_states'])
+    label = 'TRUE\n\n{' + ', '.join(reduce(mergecur,
+                                self.ksbdd.infer(als))['current_states']) + '}'
     iden = uuid.uuid4().hex
     self.graph.node(iden, label)
 
@@ -241,8 +241,8 @@ class CTLVisitor(ast.NodeVisitor):
     """Visit the False node"""
     als = self.ksbdd.mgr.bddZero()
 
-    label = 'FALSE\n' + \
-        str(reduce(mergecur, self.ksbdd.infer(als))['current_states'])
+    label = 'FALSE\n\n{' + ', '.join(reduce(mergecur,
+                                self.ksbdd.infer(als))['current_states']) + '}'
 
     iden = uuid.uuid4().hex
     self.graph.node(iden, label)

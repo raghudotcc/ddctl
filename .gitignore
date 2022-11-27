@@ -2,3 +2,4 @@ __pycache__/*
 parsetab.py
 parser.out
 lib/PyDD-1.0.0/
+*.png
