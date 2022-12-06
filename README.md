@@ -32,7 +32,7 @@ $ ./ddctl -h
 ### Model Checking
 
 ```bash
-$ ./ddctl -s <specfile.json> [--ectl-only] [--output <outputfile>]
+$ ./ddctl -s <specfile.json> [--ectl-only] [--output <outputfile.png>]
 ```
 
 ## SPECFILE
