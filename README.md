@@ -2,7 +2,7 @@
 
 A BDD-based toy model checker for CTL (Computational Tree Logic).
 
-## Directly using the model checker source code
+## Directly using the model checker library
 
 You can directly use the model checker by called the `Model` class like below:
 (Basically this is what the ddctl commandline tool does)
