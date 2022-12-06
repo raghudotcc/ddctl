@@ -1,5 +1,6 @@
 from nodes import *
 import ast
+import nodes
 
 class ECTLConverter(ast.NodeTransformer):
   def visit_Module(self, node):
@@ -19,8 +20,8 @@ class ECTLConverter(ast.NodeTransformer):
     # send new, node changes inside the for loop 
     # because of the ast.walk
     for node in ast.walk(node):
-      if isinstance(node, Not):
-        if not isinstance(node.arg, AtomicProposition):
+      if isinstance(node, nodes.Not):
+        if not isinstance(node.arg, nodes.AtomicProposition):
           return (False, new)
     return (True, new)
 
@@ -67,13 +68,13 @@ class ECTLConverter(ast.NodeTransformer):
   def visit_Not(self, node):
     """Visit the Not node"""
     # distribute the negation
-    if isinstance(node.arg, And):
+    if isinstance(node.arg, nodes.And):
       return Or(Not(self.visit(node.arg.arg1)), Not(self.visit(node.arg.arg2)))
-    elif isinstance(node.arg, Or):
+    elif isinstance(node.arg, nodes.Or):
       return And(Not(self.visit(node.arg.arg1)), Not(self.visit(node.arg.arg2)))
-    elif isinstance(node.arg, Implies):
+    elif isinstance(node.arg, nodes.Implies):
       return And(self.visit(node.arg.arg1), Not(self.visit(node.arg.arg2)))
-    elif isinstance(node.arg, Not):
+    elif isinstance(node.arg, nodes.Not):
       return self.visit(node.arg.arg)
     else:
       return Not(self.visit(node.arg))
@@ -83,13 +84,18 @@ class ECTLConverter(ast.NodeTransformer):
     """Visit the And node"""
     phi = self.visit(node.arg1)
     psi = self.visit(node.arg2)
+    if self.same(phi, psi):
+      return phi
     return And(phi, psi)
 
   def visit_Or(self, node):
     """Visit the Or node"""
     phi = self.visit(node.arg1)
     psi = self.visit(node.arg2)
+    if self.same(phi, psi):
+      return phi
     return Or(phi, psi)
+
 
   def visit_Implies(self, node):
     """Visit the Implies node"""

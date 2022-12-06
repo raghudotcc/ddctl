@@ -1,8 +1,27 @@
-# ddCTL
+# ddctl
 
 A BDD-based toy model checker for CTL (Computational Tree Logic).
 
-## Usage
+## Directly using the model checker source code
+
+You can directly use the model checker by called the `Model` class like below:
+(Basically this is what the ddctl commandline tool does)
+
+
+```python
+from model import *
+
+m = Model(specfile=args.specfile, ectl_only=args.ectl_only, output=args.output)
+
+print(m.ectlrepr, end=', ')
+print(m.check())
+
+# alternatively if you want you can print true or false as well instead of the 
+# colorized message
+print(m.check().status)
+```
+
+## Command Line Tool - Usage
 
 ### Help
 
@@ -13,7 +32,7 @@ $ ./ddctl -h
 ### Model Checking
 
 ```bash
-$ ./ddctl -s <specfile.json> [--include-init] [--ectl-only] [--output <outputfile>]
+$ ./ddctl -s <specfile.json> [--ectl-only] [--output <outputfile>]
 ```
 
 ## SPECFILE
@@ -22,7 +41,7 @@ The specification file is a json file with the following structure:
 
 The JSON file should contain the kripke structure and the CTL formula you want to see model checked.
 
-The output will give you $K \models \varphi$ or $K \not \models \varphi$, where $K$ is the kripke structure and $\varphi$ is the CTL formula. If it doesn't model, it will also give you a counterexample.
+The output will give you $K \models \varphi$ or $K \not \models \varphi$, where $K$ is the kripke structure and $\varphi$ is the CTL formula.
 
 * No RELEASE operator yet
 

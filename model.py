@@ -5,27 +5,44 @@ import graphviz
 from util import *
 import subprocess
 import uuid
+import nodes
+import readspec
+import argparse
+from util import *
+from model import *
+from ectlconv import *
+import logging
+
 
 
 class Model:
-  def __init__(self, ks, ctlf_ast, include_init=False, output=None):
-    self.ctlf_ast = ctlf_ast
-    self.ctl_visitor = CTLVisitor(ks, include_init, output)
+  def __init__(self, specfile, ectl_only=False, output=None):
+    """Initialize the model"""
+    self.ks, self.ctlf = readspec.read_spec(specfile)
+    self.output = output
+    self.isectl, self.ectlf = ECTLConverter().ectl(parser.parse(self.ctlf))
+    self.ectlrepr = bold(magenta("φ: ")) + underline(bold(blue(str(self.ectlf.body))))
+
+    if not self.isectl and ectl_only:
+      logging.error("CTL formula + '%s' is not ECTL\n" % self.ectlf.body)
+      exit(1)
+    self.ksbdd = ksBDD(self.ks)
+    self.ctlf_ast = ast.parse(self.ectlf)
+    self.ctl_visitor = CTLVisitor(self.ks, self.isectl, self.output)
 
   def check(self):
     """Check the CTL formula"""
-    return self.ctl_visitor.visit(self.ctlf_ast)
-
-
+    return Result(self.ctl_visitor.visit(self.ctlf_ast))
+    
 class CTLVisitor(ast.NodeVisitor):
-  def __init__(self, ks, include_init=False, output=None):
+  def __init__(self, ks, isectl, output=None):
     self.ks = ks
     self.ksbdd = ksBDD(ks)
     self.init = self.ksbdd.get_init_bdd()
     self.T = self.ksbdd.get_T_bdd()
     self.ap = self.ksbdd.get_ap_bdd()
-    self.include_init = include_init
     self.output = output
+    self.isectl = isectl
     self.graph = graphviz.Digraph(format='png',
                                   graph_attr={'rankdir': 'BT', 'splines': 'ortho'})
 
@@ -46,10 +63,7 @@ class CTLVisitor(ast.NodeVisitor):
     while Z != zeta:
       zeta = Z
       Z &= self.preimage(self.T, Z)
-    if self.include_init:
-      return Z if self.init <= Z else self.ksbdd.mgr.bddZero()
-    else:
-      return Z
+    return Z
 
   def computeEF(self, phi):
     """EF phi least fixpoint computation"""
@@ -58,10 +72,7 @@ class CTLVisitor(ast.NodeVisitor):
     while Z != zeta:
       zeta = Z
       Z |= self.image(self.T, Z)
-    if self.include_init:
-      return Z if self.init <= Z else self.ksbdd.mgr.bddZero()
-    else:
-      return Z
+    return Z
 
   def computeEU(self, phi, psi):
     """Compute the EU of phi and psi"""
@@ -70,10 +81,7 @@ class CTLVisitor(ast.NodeVisitor):
     while Z != zeta:
       zeta = Z
       Z = self.computeOr(Z, self.computeAnd(phi, self.preimage(self.T, Z)))
-    if self.include_init:
-      return Z if self.init <= Z else self.ksbdd.mgr.bddZero()
-    else:
-      return Z
+    return Z
 
   def computeEX(self, phi):
     """Compute the EX of phi"""
@@ -81,7 +89,7 @@ class CTLVisitor(ast.NodeVisitor):
 
   def computeNot(self, phi):
     """Compute the negation of phi"""
-    return ~phi
+    return ~phi 
 
   def computeAnd(self, phi, psi):
     """Compute the conjunction of phi and psi"""
@@ -96,13 +104,18 @@ class CTLVisitor(ast.NodeVisitor):
     return self.computeOr(self.computeNot(phi), psi)
 
   def visit_Module(self, node):
-    module = self.visit(node.body)
+    module, iden = self.visit(node.body)
     if self.output:
       # if the output filename contains .png, then remove it
       if self.output.endswith('.png'):
         self.output = self.output[:-4]
       self.graph.render(self.output)
-    return module
+    
+    if self.init <= module:
+      return True
+    else:
+      return False
+
 
   def visit_EU(self, node):
     """Visit the EU node"""
@@ -250,3 +263,66 @@ class CTLVisitor(ast.NodeVisitor):
     return (als, iden)
   
 
+
+"""
+def get_witness_or_counterexample(self, is_witness):
+    # Use the `results` dictionary and the `path` stack to construct
+    # the witness or counterexample.
+    path = self.path
+    result = self.results[path[-1]]
+    if is_witness:
+        # Construct a witness by starting from the initial state of the
+        # parse graph and iterating over the sequence of nodes in the
+        # `path` stack.
+        witness = []
+        for node in path:
+            if isinstance(node, nodes.AtomicProposition):
+                # For atomic propositions, add the corresponding state
+                # to the witness.
+                state = node.value
+                witness.append(state)
+            elif isinstance(node, nodes.Not):
+                # For negation nodes, continue to the next node in the
+                # `path` stack.
+                continue
+            else:
+                # For all other nodes, check if the result of the CTL
+                # formula's evaluation on the parse graph is True. If
+                # so, continue to the next node in the `path` stack.
+                # Otherwise, break from the loop and return an empty
+                # witness.
+                if not result:
+                    witness = []
+                    break
+        return witness
+    else:
+        # Construct a counterexample by starting from the initial state
+        # of the parse graph and iterating over the sequence of nodes
+        # in the `path` stack.
+        counterexample = []
+        for node in path:
+            if isinstance(node, nodes.AtomicProposition):
+                # For atomic propositions, add the corresponding state
+                # to the counterexample.
+                state = node.value
+                counterexample.append(state)
+            elif isinstance(node, nodes.Not):
+                # For negation nodes, check if the result of the CTL
+                # formula's evaluation on the parse graph is False. If
+                # so, continue to the next node in the `path` stack.
+                # Otherwise, break from the loop and return an empty
+                # counterexample.
+                if result:
+                    counterexample = []
+                    break
+            else:
+                # For all other nodes, check if the result of the CTL
+                # formula's evaluation on the parse graph is False. If
+                # so, continue to the next node in the `path` stack.
+                # Otherwise, break from the loop and return an empty
+                # counterexample.
+                if result:
+                    counterexample = []
+                    break
+        return counterexample
+"""

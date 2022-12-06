@@ -12,13 +12,13 @@
     "h" : ["b"]
   },
   "ap" : {
-    "a" : ["q0", "dneg1"],
+    "a" : ["q0", "dnotneg1"],
     "b" : ["q0"],
-    "c" : ["q0", "dneg1"],
-    "d" : ["q0", "dneg1"],
-    "e" : ["dneg1"],
-    "g" : ["dneg1"],
-    "h" : ["dneg1"]
+    "c" : ["q0", "dnotneg1"],
+    "d" : ["q0", "dnotneg1"],
+    "e" : ["dnotneg1"],
+    "g" : ["dnotneg1"],
+    "h" : ["dnotneg1"]
   },
-  "ctlf" : "AG q0 -> dneg1"
+  "ctlf" : "AG q0 -> dnotneg1"
 } 
