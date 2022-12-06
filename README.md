@@ -1,6 +1,6 @@
 # ddctl
 
-A BDD-based toy model checker for CTL (Computational Tree Logic).
+A BDD-based model checker for CTL (Computational Tree Logic).
 
 ## Directly using the model checker library
 
