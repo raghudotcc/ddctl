@@ -70,6 +70,7 @@ The output will give you $K \models \varphi$ or $K \not \models \varphi$, where 
 
 - Graphviz (for visualization)
 - PyDD - CuDD Python Binding  (for BDDs)
+- PLY - Python Lex-Yacc (for parsing)
 
 
 ## Getting Dependencies

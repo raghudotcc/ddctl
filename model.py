@@ -24,7 +24,7 @@ class Model:
     self.ectlrepr = bold(magenta("φ: ")) + underline(bold(blue(str(self.ectlf.body))))
 
     if not self.isectl and ectl_only:
-      logging.error("CTL formula + '%s' is not ECTL\n" % self.ectlf.body)
+      logging.error("\nCTL formula + '%s' is not ECTL\n" % self.ectlf.body)
       exit(1)
     self.ksbdd = ksBDD(self.ks)
     self.ctlf_ast = ast.parse(self.ectlf)

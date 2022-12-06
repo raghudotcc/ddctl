@@ -13,6 +13,6 @@ args = argparser.parse_args()
 
 m = Model(specfile=args.specfile, ectl_only=args.ectl_only, output=args.output)
 
-print(m.ectlrepr, end=', ')
+print("\n", m.ectlrepr, end=', ')
 print(m.check())
 
